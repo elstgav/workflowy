@@ -5,212 +5,25 @@
     font-family: Avenir Next !important;
 }
 
-/* Remove weird transform. (Nevermind, it’s used for switching to other favorites)*/
-/*
-#pageContainer .page {
-    transform: none !important;
-    margin: auto !important;
-}
-*/
-
-/* Dark theme */
-body  { background-color: #2c2c2c !important; }
-.page {
-  background-color: #302f2f !important;
-  border-color: rgba(255,255,255,.02) !important;
-  color: #eee;
-}
-
-.project:not(.open,.task) > .name > .bullet:not(:hover) {
-    background-color: rgba(255,255,255,.1) !important;
-}
-
-.children {
-    border-left-color: rgba(255,255,255,.1) !important;
-}
-
-.project.highlighted::before,
-.project.moving::before,
-.project.tapped::before,
-.draggableNameClone::before {
-    background-color: rgba(255,255,255,.1) !important;
-}
-
-.pageStar {
-    opacity: .5;
+/* Set to dark background (mainly for startup screen) */
+body {
+    background-color: rgb(42, 49, 53);
 }
 
 
-
-
-
-/* Remove “page” appearance */
-@media (max-width: 1200px) {
-    #pageContainer {
-        /* margin-top: 0px !important; /* Remove 20px top margin */
-    }
-
-    #pageContainer .page {
-        width: 100% !important;
-        box-sizing: border-box !important;
-
-        padding-top: 50px !important; /* Add 20px (removed margin) to previous 30px top padding */
-        border: none !important;
-        margin: auto !important;
-        box-shadow: none !important;
-    }
-
-    .pageStar {
-        /* margin-top: 10px !important; /* Add 20px (removed margin) to previous 10px top */
-    }
-
-    #header:focus-within ~ #pageContainer .pageStar,
-    #header:hover ~ #pageContainer .pageStar {
-        margin-top: 40px !important; /* Slide down star when header is focused */
-    }
+/* Hide star menu from header */
+.header > .starMenu {
+    display: none;
 }
 
-
-
-/**********/
-/* Header */
-/**********/
-
-/* Squished header */
-@media (max-width: 545px) {
-    #header #helpButton { display: none !important; }
-    #searchBox {
-        width: calc(100vw - 230px) !important;
-        min-width: 50px;
-        max-width: 200px;
-    }
-
-    /* Remove "completed" text from header button */
-    .showCompletedButton {
-        width: 60px !important;
-    }
-    .showCompletedButton .topBarButtonTextContainer {
-        font-size: 0 !important;
-    }
-    .showCompletedButton .topBarButtonTextContainer span {
-        font-size: 13px !important;
-    }
-    .showCompletedButton .topBarButtonTextContainer span::before {
-        content: '\2713\0020'; /* ✓ */
-    }
-}
-
-
-
-/* Remove unused elements */
-#logo,
-#savedViewHUDButton,
-#header .undo-button,
-#header .redo-button,
-#getMoreSpaceButtonTopRight {
-    display: none !important;
-}
-
-/* Change Header Color */
-._u {
-    background-color: rgb(35,35,35);
-}
-
-/* Auto-hiding header. Activate with `esc` key
-#header {
-    min-width: 274px !important;
-    padding: 5px !important;
-    top: -40px !important;
-}
-#header, .pageStar {
-    transition: all ease-in-out 500ms 1s;
-}
-
-#header:hover,
-#header:focus-within {
-    top: 0px !important;
-}
-*/
-
-#header:hover,
-#header:focus-within,
-#header:focus-within ~ #pageContainer .pageStar,
-#header:hover ~ #pageContainer .pageStar {
-    /* transition: all ease-in-out 100ms; */
-}
-
-#documentView {
-    padding-top: 0px !important;
-}
-
-#header,
-#searchBox,
-#header .button,
-#header > #buttonBar,
-#header .menu-options {
-    border-color: rgba(0,0,0,.2) !important;
-}
-
-#header > .button,
-#header > #buttonBar {
-    background: rgba(0,0,0,.1) !important;
-    border-width: 1px !important;   /* Add borders to top and bottom */
-    border-style: solid !important; /* Add borders to top and bottom */
-    border-radius: 3px !important;
-    margin-left: 3px !important;
-
-    /*color: #888 !important;*/
-}
-
-#header .menu-icon {
-    /*background-position: -1px -80px !important;
-    opacity: .4 !important;*/
-}
-
-#header .menu-options {
-    top: 95% !important;
-
-    /*background: #F1F1F1 !important;*/
-    /*border: 1px solid #DDD !important;*/
-    border-radius: 5px !important;
-
-    /*color: #888 !important;*/
-}
-
-#header .menu-options > .button:hover {
-    /*background: white !important;*/
-}
-
-#searchForm {
-    position: static !important;
-}
-#searchBox {
-    /* height: 22px !important; */
-}
-
-
-/* Show full notes */
+/* Show full, multi-line notes */
 .noted > .notes > .content {
     height: auto !important;
-    min-height: quto !important;
+    max-height: inherit !important;
 
     overflow: visible !important;
     -webkit-line-clamp: inherit !important;
     white-space: inherit !important;
-}
-
-
-/* Hide social buttons */
-h3.siteSlogan,
-#bottomLinks .bottomLinksVerticalSpacer,
-#proPitchBottomRight,
-#bottomLinks .facebookLike,
-#bottomLinks > div:nth-child(3) {
-    display: none !important;
-}
-
-.footer {
-    padding-bottom: 0 !important;
 }
 
 
@@ -222,13 +35,4 @@ h3.siteSlogan,
 
     overflow-x: hidden;
     max-width: 100%;
-}
-
-
-/* Hide unneeded hover menu options */
-#controlsLeft a.complete,
-#controlsLeft a.note,
-#controlsLeft a.duplicate hr,
-#controlsLeft a.delete {
-    display: none !important;
 }
