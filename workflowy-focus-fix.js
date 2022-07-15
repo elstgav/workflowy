@@ -14,6 +14,8 @@
 // ==/UserScript==
 
 ;(function () {
+  let attempts = 0
+
   function fixFocus() {
     const active = document.activeElement.className
 
@@ -38,20 +40,14 @@
     requestAnimationFrame(fixFocus)
   }
 
-  const start = () => {
-    let attempts = 0
-
-    // Set focus on WorkFlowy initial load
-    function waitForActivePage() {
-      if (!document.querySelector('.page.active')) {
-        return ++attempts <= 50 && setTimeout(waitForActivePage, 100)
-      }
-
-      fixFocus()
+  // Set focus on WorkFlowy initial load
+  function waitForActivePage() {
+    if (!document.querySelector('.page.active')) {
+      return ++attempts <= 50 && setTimeout(waitForActivePage, 100)
     }
 
-    waitForActivePage()
+    fixFocus()
   }
 
-  start()
+  waitForActivePage()
 })()

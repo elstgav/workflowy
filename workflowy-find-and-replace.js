@@ -14,6 +14,8 @@
 // ==/UserScript==
 
 ;(() => {
+  let attempts = 0
+
   const findAndReplace = () => {
     function toastMsg(str, sec, err) {
       WF.showMessage(str, err)
@@ -225,21 +227,15 @@
     document.head.appendChild(style)
   }
 
-  const start = () => {
-    let attempts = 0
+  const waitForActivePage = () => {
+    const searchInput = document.getElementById('srch-input')
 
-    const waitForActivePage = () => {
-      const searchInput = document.getElementById('srch-input')
-
-      if (!searchInput) {
-        return ++attempts <= 50 && setTimeout(waitForActivePage, 100)
-      }
-
-      searchInput.addEventListener('keyup', addButton, { once: true })
+    if (!searchInput) {
+      return ++attempts <= 50 && setTimeout(waitForActivePage, 100)
     }
 
-    waitForActivePage()
+    searchInput.addEventListener('keyup', addButton, { once: true })
   }
 
-  start()
+  waitForActivePage()
 })()
