@@ -196,7 +196,15 @@
   )
 
   const style = createElementFromHTML(
-    `<style>#srch-input[value=""] ~ div .gavin-find-and-replace-button { display: none }</style>`,
+    `<style>
+      #srch-input[value=""] ~ div .gavin-find-and-replace-button {
+        display: none
+      }
+      #srch-input {
+        padding-right: 6.2em;
+        text-overflow: ellipsis;
+      }
+    </style>`.replace(/\s/, ' '),
   )
 
   const addButton = () => {
@@ -214,12 +222,13 @@
     button.title = 'Find & Replace'
     button.classList.add('gavin-find-and-replace-button')
 
-    // Increase padding for search input
-    const paddingRight = getComputedStyle(searchInput).paddingRight
-    if (!paddingRight.includes('px'))
-      throw new Error('Gavin: Unable to parse search input padding; doesn’t use px')
-
-    searchInput.style.paddingRight = `${Number.parseInt(paddingRight) + 30}px`
+    // TODO: Mobile input has 1px padding, so this breaks
+    // // Increase padding for search input
+    // const paddingRight = getComputedStyle(searchInput).paddingRight
+    // if (!paddingRight.includes('px'))
+    //   throw new Error('Gavin: Unable to parse search input padding; doesn’t use px')
+    //
+    // searchInput.style.paddingRight = `${Number.parseInt(paddingRight) + 30}px`
 
     // Append the button
     buttonsWrapper.firstChild.before(button)
