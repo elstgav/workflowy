@@ -38,11 +38,15 @@
     requestAnimationFrame(fixFocus)
   }
 
+  let attempts = 0
+
   // Set focus on WorkFlowy initial load
   function waitForActivePage() {
-    if (document.querySelector('.page.active')) return void fixFocus()
+    if (!document.querySelector('.page.active')) {
+      return ++attempts <= 5 && setTimeout(waitForActivePage, 300)
+    }
 
-    setTimeout(waitForActivePage, 300)
+    fixFocus()
   }
 
   waitForActivePage()
