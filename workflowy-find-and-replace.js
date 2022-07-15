@@ -15,6 +15,7 @@
 
 ;(() => {
   let attempts = 0
+  let searchInput
 
   const findAndReplace = () => {
     function toastMsg(str, sec, err) {
@@ -198,9 +199,7 @@
     `<style>#srch-input[value=""] ~ div .gavin-find-and-replace-button { display: none }</style>`,
   )
 
-  const addButton = event => {
-    const searchInput = event.target
-
+  const addButton = () => {
     // Find our elements
     const searchWrapper = searchInput.closest('label').parentElement
     const starButton = searchWrapper.querySelector(
@@ -228,11 +227,14 @@
   }
 
   const waitForActivePage = () => {
-    const searchInput = document.getElementById('srch-input')
+    searchInput = document.getElementById('srch-input')
 
     if (!searchInput) {
       return ++attempts <= 50 && setTimeout(waitForActivePage, 100)
     }
+
+    // Currently searching
+    if (searchInput.value) return addButton()
 
     searchInput.addEventListener('keyup', addButton, { once: true })
   }
