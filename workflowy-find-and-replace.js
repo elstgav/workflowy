@@ -14,7 +14,7 @@
 // ==/UserScript==
 
 ;(() => {
-  function findAndReplace() {
+  const findAndReplace = () => {
     function toastMsg(str, sec, err) {
       WF.showMessage(str, err)
       setTimeout(WF.hideMessage, (sec || 2) * 1000)
