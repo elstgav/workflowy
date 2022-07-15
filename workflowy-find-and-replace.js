@@ -196,9 +196,9 @@
     `<style>#srch-input[value=""] ~ div .gavin-find-and-replace-button { display: none }</style>`,
   )
 
-  const searchInput = document.getElementById('srch-input')
+  const addButton = event => {
+    const searchInput = event.target
 
-  const addButton = () => {
     // Find our elements
     const searchWrapper = searchInput.closest('label').parentElement
     const starButton = searchWrapper.querySelector(
@@ -225,5 +225,17 @@
     document.head.appendChild(style)
   }
 
-  searchInput.addEventListener('keyup', addButton, { once: true })
+  let attempts = 0
+
+  const waitForActivePage = () => {
+    const searchInput = document.getElementById('srch-input')
+
+    if (!searchInput) {
+      return ++attempts <= 5 && setTimeout(waitForActivePage, 300)
+    }
+
+    searchInput.addEventListener('keyup', addButton, { once: true })
+  }
+
+  waitForActivePage()
 })()
