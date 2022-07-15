@@ -207,11 +207,11 @@
     const buttonsWrapper = starButton.parentElement
 
     // Build our button
-    const findAndReplaceButton = starButton.cloneNode(true)
-    findAndReplaceButton.querySelector('svg').replaceWith(icon)
-    findAndReplaceButton.onclick = findAndReplace
-    findAndReplaceButton.title = 'Find & Replace'
-    findAndReplaceButton.classList.add('gavin-find-and-replace-button')
+    const button = starButton.cloneNode(true)
+    button.querySelector('svg').replaceWith(icon)
+    button.onclick = findAndReplace
+    button.title = 'Find & Replace'
+    button.classList.add('gavin-find-and-replace-button')
 
     // Increase padding for search input
     const paddingRight = getComputedStyle(searchInput).paddingRight
@@ -221,7 +221,7 @@
     searchInput.style.paddingRight = `${Number.parseInt(paddingRight) + 30}px`
 
     // Append the button
-    buttonsWrapper.firstChild.before(findAndReplaceButton)
+    buttonsWrapper.firstChild.before(button)
     document.head.appendChild(style)
   }
 
