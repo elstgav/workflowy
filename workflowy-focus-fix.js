@@ -13,37 +13,37 @@
 
 // ==/UserScript==
 
-(function () {
-    function fixFocus() {
-      const active = document.activeElement.className
+;(function () {
+  function fixFocus() {
+    const active = document.activeElement.className
 
-      if (active.includes("searchBoxInput") || active.includes("content")) return
+    if (active.includes('searchBoxInput') || active.includes('content')) return
 
-      const matches = document.querySelectorAll(
-        ".name.matches .content, .notes.matches .content, .metaMatches .name .content"
-      )
+    const matches = document.querySelectorAll(
+      '.name.matches .content, .notes.matches .content, .metaMatches .name .content',
+    )
 
-      if (matches.length > 0) return void matches[0].focus()
+    if (matches.length > 0) return void matches[0].focus()
 
-      // home name [0] and note [1] are "hidden"
-      const index = WF.currentItem().isMainDocumentRoot() && !WF.currentSearchQuery() ? 2 : 0;
-      const content = document.getElementsByClassName("content");
+    // home name [0] and note [1] are "hidden"
+    const index = WF.currentItem().isMainDocumentRoot() && !WF.currentSearchQuery() ? 2 : 0
+    const content = document.getElementsByClassName('content')
 
-      if (content.length > 0) content[index].focus();
-    }
+    if (content.length > 0) content[index].focus()
+  }
 
-    // Fix for duplicate global listener
-    window.WFEventListener ||= event => {
-      if (event !== "locationChanged") return
-      requestAnimationFrame(fixFocus)
-    }
+  // Fix for duplicate global listener
+  window.WFEventListener ||= event => {
+    if (event !== 'locationChanged') return
+    requestAnimationFrame(fixFocus)
+  }
 
-    // Set focus on WorkFlowy initial load
-    function waitForActivePage() {
-      if (document.querySelector(".page.active")) return void fixFocus()
+  // Set focus on WorkFlowy initial load
+  function waitForActivePage() {
+    if (document.querySelector('.page.active')) return void fixFocus()
 
-      setTimeout(waitForActivePage, 300)
-    }
+    setTimeout(waitForActivePage, 300)
+  }
 
-    waitForActivePage()
-  })()
+  waitForActivePage()
+})()
