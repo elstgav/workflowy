@@ -57,7 +57,7 @@
     })
   }
 
-  const currentProjectRoot = () => currentProject.closest('.project.root > .children > .project')
+  const currentProjectRoot = () => currentProject?.closest('.project.root > .children > .project')
 
   const currentProjectObserver = new MutationObserver(mutationList => {
     const moved = mutationList[0].oldValue.includes('moving')
