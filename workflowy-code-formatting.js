@@ -33,7 +33,7 @@
         border-radius: 6px;
         background-color: rgba(0,0,0,.25);
       }
-    </style>`.replace(/\s/, ' '),
+    </style>`.replaceAll(/[\s\n]+/g, ' '),
   )
 
   const highlight = container => {
