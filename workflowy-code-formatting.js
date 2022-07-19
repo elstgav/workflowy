@@ -21,7 +21,10 @@
 
   const style = createElementFromHTML(
     `<style>
-      .gavin-backtick { display: none }
+      span.gavin-backtick {
+        font-size: 0;
+        line-height: 0;
+      }
 
       code.gavin-inline-code {
         padding: .2em .4em;
