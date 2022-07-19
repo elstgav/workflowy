@@ -32,10 +32,12 @@
     if (content.length > 0) content[index].focus()
   }
 
-  // Fix for duplicate global listener
-  window.WFEventListener ||= event => {
+  const otherListeners = WFEventListener
+  window.WFEventListener = event => {
     if (event !== 'locationChanged') return
     requestAnimationFrame(fixFocus)
+
+    otherListeners(event)
   }
 
   const appObserver = new MutationObserver(() => {
