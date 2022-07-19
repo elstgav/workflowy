@@ -37,7 +37,8 @@
     </style>`.replaceAll(/[\s\n]+/g, ' '),
   )
 
-  const highlight = container => {
+  const highlight = (container = document.querySelector('.page.active')) => {
+    if (!container) return
     if (document.getElementById('srch-input').value.includes('`')) return
 
     container.querySelectorAll('.content[contenteditable] .innerContentContainer').forEach(item => {
@@ -55,39 +56,39 @@
     })
   }
 
+  const currentProjectRoot = () => currentProject.closest('.project.root > .children > .project')
+
   const currentProjectObserver = new MutationObserver(mutationList => {
-    if (!mutationList.some(mutation => mutation.attributeName === 'class')) return
+    const moved = mutationList[0].oldValue.includes('moving')
+    const moving = mutationList[0].target.classList.contains('moving')
 
-    // Update item
-    highlight(currentProject)
+    const prevOpen = mutationList[0].oldValue.includes('open')
+    const nowOpen = mutationList[0].target.classList.contains('open')
+    const toggled = prevOpen !== nowOpen
 
-    // Update parents
-    const parents = []
-    let lastParent = currentProject
-
-    while ((lastParent = lastParent.parentElement.closest('.project'))) {
-      parents.push(lastParent)
-    }
-
-    parents.forEach(parent => highlight(parent.querySelector(':scope > .name')))
+    if (toggled || moving || moved) highlight(currentProjectRoot())
   })
 
   const breadcrumbObserver = new MutationObserver(() => {
-    highlight(document.querySelector('.page.active'))
+    highlight()
   })
 
-  const shiftFocus = event => {
+  const onFocusIn = event => {
     // Handle previous focused project
     if (currentProject) {
       currentProjectObserver.disconnect()
-      highlight(currentProject)
+      highlight(currentProjectRoot())
     }
 
     currentProject = event.target.closest('.project')
 
     if (!currentProject) return
 
-    currentProjectObserver.observe(currentProject, { attributes: true })
+    currentProjectObserver.observe(currentProject, {
+      attributes: true,
+      attributeFilter: ['class'],
+      attributeOldValue: true,
+    })
   }
 
   const waitForActivePage = () => {
@@ -97,11 +98,11 @@
       return ++attempts <= 50 && setTimeout(waitForActivePage, 100)
     }
 
-    highlight(page)
+    highlight()
 
     window.addEventListener('popstate', highlight)
     window.addEventListener('hashchange', highlight)
-    page.addEventListener('focusin', shiftFocus)
+    page.addEventListener('focusin', onFocusIn)
     breadcrumbObserver.observe(document.querySelector('.breadcrumbs'), { childList: true })
   }
 
