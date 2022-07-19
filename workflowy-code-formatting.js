@@ -41,17 +41,19 @@
     if (document.getElementById('srch-input').value.includes('`')) return
 
     container.querySelectorAll('.content[contenteditable] .innerContentContainer').forEach(item => {
-      if (
-        !item.textContent ||
-        item.innerHTML.includes('</code>') ||
-        !item.textContent.match(INLINE_CODE)
-      )
-        return
+      requestAnimationFrame(() => {
+        if (
+          !item.textContent ||
+          item.innerHTML.includes('</code>') ||
+          !item.textContent.match(INLINE_CODE)
+        )
+          return
 
-      item.innerHTML = item.innerHTML.replaceAll(
-        INLINE_CODE,
-        '<span class="gavin-backtick">`</span><code class="gavin-inline-code">$1</code><span class="gavin-backtick">`</span>',
-      )
+        item.innerHTML = item.innerHTML.replaceAll(
+          INLINE_CODE,
+          '<span class="gavin-backtick">`</span><code class="gavin-inline-code">$1</code><span class="gavin-backtick">`</span>',
+        )
+      })
     })
   }
 
