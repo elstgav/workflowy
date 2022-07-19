@@ -28,10 +28,11 @@
 
       code.gavin-inline-code {
         padding: .2em .4em;
+        background-color: rgba(0,0,0,.25);
+        border-radius: 6px;
         margin: 0;
         font-size: 85%;
-        border-radius: 6px;
-        background-color: rgba(0,0,0,.25);
+        line-height: 1;
       }
     </style>`.replaceAll(/[\s\n]+/g, ' '),
   )
