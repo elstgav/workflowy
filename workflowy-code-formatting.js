@@ -10,7 +10,7 @@
 
 ;(() => {
   let attempts = 0
-  let currentItem
+  let currentProject
   const INLINE_CODE = /`([^`]+)`/g
 
   const createElementFromHTML = html => {
@@ -51,15 +51,15 @@
     })
   }
 
-  const currentItemObserver = new MutationObserver(mutationList => {
+  const currentProjectObserver = new MutationObserver(mutationList => {
     if (!mutationList.some(mutation => mutation.attributeName === 'class')) return
 
     // Update item
-    highlight(currentItem)
+    highlight(currentProject)
 
     // Update parents
     const parents = []
-    let lastParent = currentItem
+    let lastParent = currentProject
 
     while ((lastParent = lastParent.parentElement.closest('.project'))) {
       parents.push(lastParent)
@@ -72,17 +72,18 @@
     highlight(document.querySelector('.page.active'))
   })
 
-  const shiftFocus = () => {
-    // Highlight previous item
-    if (currentItem) {
-      currentItemObserver.disconnect()
-      highlight(currentItem)
+  const shiftFocus = event => {
+    // Handle previous focused project
+    if (currentProject) {
+      currentProjectObserver.disconnect()
+      highlight(currentProject)
     }
 
-    currentItem = WF.focusedItem()?.getElement()
-    if (!currentItem) return
+    currentProject = event.target.closest('.project')
 
-    currentItemObserver.observe(currentItem, { attributes: true })
+    if (!currentProject) return
+
+    currentProjectObserver.observe(currentProject, { attributes: true })
   }
 
   const waitForActivePage = () => {
