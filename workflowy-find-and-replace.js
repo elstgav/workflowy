@@ -14,7 +14,6 @@
 // ==/UserScript==
 
 ;(() => {
-  let attempts = 0
   let searchInput
 
   const findAndReplace = () => {
@@ -232,21 +231,20 @@
 
     // Append the button
     buttonsWrapper.firstChild.before(button)
-    document.head.appendChild(style)
   }
 
-  const waitForActivePage = () => {
+  const appObserver = new MutationObserver(() => {
     searchInput = document.getElementById('srch-input')
 
-    if (!searchInput) {
-      return ++attempts <= 50 && setTimeout(waitForActivePage, 100)
-    }
+    if (!searchInput) return
 
     // Currently searching
     if (searchInput.value) return addButton()
 
     searchInput.addEventListener('keyup', addButton, { once: true })
-  }
+    appObserver.disconnect()
+  })
 
-  waitForActivePage()
+  document.head.appendChild(style)
+  appObserver.observe(document.getElementById('app'), { childList: true })
 })()

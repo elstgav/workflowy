@@ -9,7 +9,6 @@
 // ==/UserScript==
 
 ;(() => {
-  let attempts = 0
   let currentProject
   const INLINE_CODE = /`([^`]+)`/g
 
@@ -91,12 +90,10 @@
     })
   }
 
-  const waitForActivePage = () => {
+  const appObserver = new MutationObserver(() => {
     const page = document.querySelector('.page.active')
 
-    if (!page) {
-      return ++attempts <= 50 && setTimeout(waitForActivePage, 100)
-    }
+    if (!page) return
 
     highlight()
 
@@ -104,8 +101,10 @@
     window.addEventListener('hashchange', highlight)
     page.addEventListener('focusin', onFocusIn)
     breadcrumbObserver.observe(document.querySelector('.breadcrumbs'), { childList: true })
-  }
+
+    appObserver.disconnect()
+  })
 
   document.head.appendChild(style)
-  waitForActivePage()
+  appObserver.observe(document.getElementById('app'), { childList: true })
 })()

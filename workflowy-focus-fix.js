@@ -14,8 +14,6 @@
 // ==/UserScript==
 
 ;(function () {
-  let attempts = 0
-
   function fixFocus() {
     const active = document.activeElement.className
 
@@ -40,14 +38,14 @@
     requestAnimationFrame(fixFocus)
   }
 
-  // Set focus on WorkFlowy initial load
-  function waitForActivePage() {
-    if (!document.querySelector('.page.active')) {
-      return ++attempts <= 50 && setTimeout(waitForActivePage, 100)
-    }
+  const appObserver = new MutationObserver(() => {
+    const page = document.querySelector('.page.active')
+
+    if (!page) return
 
     fixFocus()
-  }
+    appObserver.disconnect()
+  })
 
-  waitForActivePage()
+  appObserver.observe(document.getElementById('app'), { childList: true })
 })()
