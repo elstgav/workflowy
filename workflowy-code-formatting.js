@@ -58,20 +58,15 @@
   }
 
   const currentProjectRoot = () => currentProject?.closest('.project.root > .children > .project')
+  const currentFocusRoot = () =>
+    document.querySelector('.project.root > .children > .project:focus-within')
 
   const currentProjectObserver = new MutationObserver(mutationList => {
-    const moved = mutationList[0].oldValue.includes('moving')
-    const moving = mutationList[0].target.classList.contains('moving')
-
     const prevOpen = mutationList[0].oldValue.includes('open')
     const nowOpen = mutationList[0].target.classList.contains('open')
     const toggled = prevOpen !== nowOpen
 
-    if (toggled || moving || moved) highlight(currentProjectRoot())
-  })
-
-  const breadcrumbObserver = new MutationObserver(() => {
-    highlight()
+    if (toggled) highlight(currentFocusRoot())
   })
 
   const onFocusIn = event => {
@@ -92,17 +87,50 @@
     })
   }
 
+  const existingListeners = window.WFEventListener
+  const onWFEvent = event => {
+    existingListeners?.(event)
+
+    switch (event) {
+      case 'indent':
+      case 'outdent':
+      case 'operation--bulk_create':
+      case 'operation--bulk_move':
+      case 'operation--delete': {
+        const focusRoot = currentFocusRoot()
+
+        if (currentProject === focusRoot) {
+          highlight()
+        } else {
+          highlight(currentFocusRoot())
+          if (!focusRoot.contains(currentProject)) highlight(currentProjectRoot())
+        }
+      }
+
+      case 'locationChanged': {
+        highlight()
+        break
+      }
+
+      // Ignored events
+      case 'edit':
+      case 'operation--edit':
+      case 'zoomedIn':
+      case 'zoomedOut':
+      default: {
+        break
+      }
+    }
+  }
+
   const appObserver = new MutationObserver(() => {
     const page = document.querySelector('.page.active')
 
     if (!page) return
 
     highlight()
-
-    window.addEventListener('popstate', highlight)
-    window.addEventListener('hashchange', highlight)
     page.addEventListener('focusin', onFocusIn)
-    breadcrumbObserver.observe(document.querySelector('.breadcrumbs'), { childList: true })
+    window.WFEventListener = onWFEvent
 
     appObserver.disconnect()
   })
