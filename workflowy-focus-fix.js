@@ -32,12 +32,12 @@
     if (content.length > 0) content[index].focus()
   }
 
-  const otherListeners = WFEventListener
+  const otherListeners = window.WFEventListener
   window.WFEventListener = event => {
     if (event !== 'locationChanged') return
     requestAnimationFrame(fixFocus)
 
-    otherListeners(event)
+    otherListeners?.(event)
   }
 
   const appObserver = new MutationObserver(() => {
