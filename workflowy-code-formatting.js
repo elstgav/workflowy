@@ -9,7 +9,7 @@
 // ==/UserScript==
 
 ;(() => {
-  let currentProject
+  let currentBullet
   let page
 
   const INLINE_CODE = /`([^`]+)`/g
@@ -59,11 +59,11 @@
     })
   }
 
-  const currentProjectRoot = () => currentProject?.closest('.project.root > .children > .project')
+  const currentBulletRoot = () => currentBullet?.closest('.project.root > .children > .project')
   const currentFocusRoot = () =>
     document.querySelector('.project.root > .children > .project:focus-within')
 
-  const currentProjectObserver = new MutationObserver(mutationList => {
+  const currentBulletObserver = new MutationObserver(mutationList => {
     const prevOpen = mutationList[0].oldValue.includes('open')
     const nowOpen = mutationList[0].target.classList.contains('open')
     const toggled = prevOpen !== nowOpen
@@ -72,17 +72,17 @@
   })
 
   const onFocusIn = event => {
-    // Handle previous focused project
-    if (currentProject) {
-      currentProjectObserver.disconnect()
-      highlight(currentProjectRoot())
+    // Handle previous focused bullet
+    if (currentBullet) {
+      currentBulletObserver.disconnect()
+      highlight(currentBulletRoot())
     }
 
-    currentProject = event.target.closest('.project')
+    currentBullet = event.target.closest('.project')
 
-    if (!currentProject) return
+    if (!currentBullet) return
 
-    currentProjectObserver.observe(currentProject, {
+    currentBulletObserver.observe(currentBullet, {
       attributes: true,
       attributeFilter: ['class'],
       attributeOldValue: true,
@@ -101,11 +101,11 @@
       case 'operation--delete': {
         const focusRoot = currentFocusRoot()
 
-        if (currentProject === focusRoot) {
+        if (currentBullet === focusRoot) {
           highlight(page)
         } else {
           highlight(currentFocusRoot())
-          if (!focusRoot.contains(currentProject)) highlight(currentProjectRoot())
+          if (!focusRoot.contains(currentBullet)) highlight(currentBulletRoot())
         }
       }
 
