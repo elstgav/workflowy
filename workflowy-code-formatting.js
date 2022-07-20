@@ -10,6 +10,8 @@
 
 ;(() => {
   let currentProject
+  let page
+
   const INLINE_CODE = /`([^`]+)`/g
 
   const createElementFromHTML = html => {
@@ -36,7 +38,7 @@
     </style>`.replaceAll(/[\s\n]+/g, ' '),
   )
 
-  const highlight = (container = document.querySelector('.page.active')) => {
+  const highlight = container => {
     if (!container) return
     if (document.getElementById('srch-input').value.includes('`')) return
 
@@ -100,7 +102,7 @@
         const focusRoot = currentFocusRoot()
 
         if (currentProject === focusRoot) {
-          highlight()
+          highlight(page)
         } else {
           highlight(currentFocusRoot())
           if (!focusRoot.contains(currentProject)) highlight(currentProjectRoot())
@@ -108,7 +110,7 @@
       }
 
       case 'locationChanged': {
-        highlight()
+        highlight(page)
         break
       }
 
@@ -124,13 +126,13 @@
   }
 
   const appObserver = new MutationObserver(() => {
-    const page = document.querySelector('.page.active')
+    page = document.querySelector('.page.active')
 
     if (!page) return
 
-    highlight()
     appObserver.disconnect()
 
+    highlight(page)
     page.addEventListener('focusin', onFocusIn)
     window.WFEventListener = onWFEvent
   })
