@@ -207,6 +207,8 @@
   )
 
   const addButton = () => {
+    if (document.querySelectorAll('.gavin-find-and-replace-button').length) return
+
     // Find our elements
     const searchWrapper = searchInput.closest('label').parentElement
     const starButton = searchWrapper.querySelector(
@@ -238,11 +240,14 @@
 
     if (!searchInput) return
 
-    // Currently searching
-    if (searchInput.value) return addButton()
-
-    searchInput.addEventListener('keyup', addButton, { once: true })
     appObserver.disconnect()
+
+    if (!!searchInput.value) {
+      // Currently searching
+      addButton()
+    } else {
+      searchInput.addEventListener('keyup', addButton, { once: true })
+    }
   })
 
   document.head.appendChild(style)

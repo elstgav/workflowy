@@ -129,10 +129,10 @@
     if (!page) return
 
     highlight()
+    appObserver.disconnect()
+
     page.addEventListener('focusin', onFocusIn)
     window.WFEventListener = onWFEvent
-
-    appObserver.disconnect()
   })
 
   document.head.appendChild(style)

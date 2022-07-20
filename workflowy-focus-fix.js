@@ -45,8 +45,8 @@
 
     if (!page) return
 
-    fixFocus()
     appObserver.disconnect()
+    fixFocus()
   })
 
   appObserver.observe(document.getElementById('app'), { childList: true })
