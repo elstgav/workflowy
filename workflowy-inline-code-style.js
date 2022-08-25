@@ -13,6 +13,7 @@
   let page
 
   const INLINE_CODE = /`([^`]+)`/g
+  const MANGLED_BACKTICK_ANCHOR_TAGS = /<\/a><a [^>]+ href="([^"]+)">`<\/a><a [^>]+ href="(\1)">/g
 
   const createElementFromHTML = html => {
     const template = document.createElement('template')
@@ -50,6 +51,11 @@
           !item.textContent.match(INLINE_CODE)
         )
           return
+
+        // Handle mangled link wrapping
+        if (item.innerHTML.match(MANGLED_BACKTICK_ANCHOR_TAGS)?.length >= 2) {
+          item.innerHTML = item.innerHTML.replaceAll(MANGLED_BACKTICK_ANCHOR_TAGS, '`')
+        }
 
         item.innerHTML = item.innerHTML.replaceAll(
           INLINE_CODE,
