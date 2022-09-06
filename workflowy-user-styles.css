@@ -2,37 +2,35 @@
 
 /* Change font */
 #app {
-    font-family: Avenir Next !important;
+  font-family: Avenir Next !important;
 }
 
 /* Set to dark background (mainly for startup screen) */
 body {
-    background-color: rgb(42, 49, 53);
+  background-color: rgb(42, 49, 53);
 }
-
 
 /* Hide star menu from header */
 .header > .starMenu {
-    display: none;
+  display: none;
 }
 
 /* Show full, multi-line notes */
 .noted > .notes > .content {
-    height: auto !important;
-    max-height: inherit !important;
+  height: auto !important;
+  max-height: inherit !important;
 
-    overflow: visible !important;
-    -webkit-line-clamp: inherit !important;
-    white-space: inherit !important;
+  overflow: visible !important;
+  -webkit-line-clamp: inherit !important;
+  white-space: inherit !important;
 }
-
 
 /* Make links one line */
 .task .content:not(:focus) .contentLink {
-    display: -webkit-inline-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
+  display: -webkit-inline-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
 
-    overflow-x: hidden;
-    max-width: 100%;
+  overflow-x: hidden;
+  max-width: 100%;
 }
