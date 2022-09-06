@@ -24,3 +24,8 @@ body {
   -webkit-line-clamp: inherit !important;
   white-space: inherit !important;
 }
+
+/* Fix flex wrapping of bullet content (wraps too early) */
+.content .innerContentContainer {
+  width: 100%;
+}
