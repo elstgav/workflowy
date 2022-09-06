@@ -24,13 +24,3 @@ body {
   -webkit-line-clamp: inherit !important;
   white-space: inherit !important;
 }
-
-/* Make links one line */
-.task .content:not(:focus) .contentLink {
-  display: -webkit-inline-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-
-  overflow-x: hidden;
-  max-width: 100%;
-}
