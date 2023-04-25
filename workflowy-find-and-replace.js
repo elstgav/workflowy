@@ -251,5 +251,5 @@
   })
 
   document.head.appendChild(style)
-  appObserver.observe(document.getElementById('app'), { childList: true })
+  appObserver.observe(document.body, { subtree: true, childList: true })
 })()

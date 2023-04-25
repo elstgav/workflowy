@@ -49,5 +49,5 @@
     fixFocus()
   })
 
-  appObserver.observe(document.getElementById('app'), { childList: true })
+  appObserver.observe(document.body, { subtree: true, childList: true })
 })()
