@@ -3,7 +3,7 @@
 // @namespace    https://rawbytz.wordpress.com
 // @version      2.1
 // @description  Find & Replace
-// @author       Gavin Elster
+// @author       rawbytz and Gavin Elster
 // @match        https://workflowy.com/*
 // @match        https://*.workflowy.com/*
 // @updateUrl    https://github.com/rawbytz/find-replace/blob/master/findReplace.js
