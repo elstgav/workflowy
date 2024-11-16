@@ -13,7 +13,8 @@
 
 ==/UserStyle== */
 
-@-moz-document domain("https://workflowy.com/*") {
+@-moz-document domain("https://workflowy.com/*")
+{
   /* Change font */
   #app {
     font-family: var(--font) !important;
@@ -35,6 +36,7 @@
     max-height: inherit !important;
 
     overflow: visible !important;
+    line-clamp: inherit !important;
     -webkit-line-clamp: inherit !important;
     white-space: inherit !important;
   }
