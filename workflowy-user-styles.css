@@ -1,31 +1,46 @@
-/* scss-lint:disable all */
+/* ==UserStyle==
+@name         WorkFlowy Style Tweaks
+@description  Minimal style adjustments for WorkFlowy
+@author       Gavin Elster <gavin.elster@me> (https://github.com/elstgav)
+@namespace    github.com/elstgav/workflowy
+@homepageURL  https://github.com/elstgav/workflowy
+@match        https://workflowy.com/*
+@version      1.0
+@license      MIT
+@preprocessor default
 
-/* Change font */
-#app {
-  font-family: Avenir Next !important;
-}
+@var text font "Font" Avenir Next
 
-/* Set to dark background (mainly for startup screen) */
-body {
-  background-color: rgb(42, 49, 53);
-}
+==/UserStyle== */
 
-/* Hide star menu from header */
-.header > .starMenu {
-  display: none;
-}
+@-moz-document domain("https://workflowy.com/*") {
+  /* Change font */
+  #app {
+    font-family: var(--font) !important;
+  }
 
-/* Show full, multi-line notes */
-.noted > .notes > .content {
-  height: auto !important;
-  max-height: inherit !important;
+  /* Set to dark background (mainly for startup screen) */
+  body {
+    background-color: rgb(42, 49, 53);
+  }
 
-  overflow: visible !important;
-  -webkit-line-clamp: inherit !important;
-  white-space: inherit !important;
-}
+  /* Hide star menu from header */
+  .header > .starMenu {
+    display: none;
+  }
 
-/* Fix flex wrapping of bullet content (wraps too early) */
-.content .innerContentContainer {
-  width: 100%;
+  /* Show full, multi-line notes */
+  .noted > .notes > .content {
+    height: auto !important;
+    max-height: inherit !important;
+
+    overflow: visible !important;
+    -webkit-line-clamp: inherit !important;
+    white-space: inherit !important;
+  }
+
+  /* Fix flex wrapping of bullet content (wraps too early) */
+  .content .innerContentContainer {
+    width: 100%;
+  }
 }
