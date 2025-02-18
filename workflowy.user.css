@@ -7,42 +7,35 @@
 @match        https://workflowy.com/*
 @version      1.0
 @license      MIT
-@preprocessor default
-
-@var text font "Font" Avenir Next
-
 ==/UserStyle== */
 
-@-moz-document domain("https://workflowy.com/*")
-{
-  /* Change font */
-  #app {
-    font-family: var(--font) !important;
-  }
+/* Change font */
+#app {
+  font-family: 'Avenir Next' !important;
+}
 
-  /* Set to dark background (mainly for startup screen) */
-  body {
-    background-color: rgb(42, 49, 53);
-  }
+/* Set to dark background (mainly for startup screen) */
+body {
+  background-color: rgb(42, 49, 53);
+}
 
-  /* Hide star menu from header */
-  .header > .starMenu {
-    display: none;
-  }
+/* Hide star menu from header */
+.header > .starMenu {
+  display: none;
+}
 
-  /* Show full, multi-line notes */
-  .noted > .notes > .content {
-    height: auto !important;
-    max-height: inherit !important;
+/* Show full, multi-line notes */
+.noted > .notes > .content {
+  height: auto !important;
+  max-height: inherit !important;
 
-    overflow: visible !important;
-    line-clamp: inherit !important;
-    -webkit-line-clamp: inherit !important;
-    white-space: inherit !important;
-  }
+  overflow: visible !important;
+  line-clamp: inherit !important;
+  -webkit-line-clamp: inherit !important;
+  white-space: inherit !important;
+}
 
-  /* Fix flex wrapping of bullet content (wraps too early) */
-  .content .innerContentContainer {
-    width: 100%;
-  }
+/* Fix flex wrapping of bullet content (wraps too early) */
+.content .innerContentContainer {
+  width: 100%;
 }
