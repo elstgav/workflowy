@@ -13,6 +13,8 @@
 
 // ==/UserScript==
 
+// @ts-nocheck - Vendor script
+
 ;(function () {
   function fixFocus() {
     const active = document.activeElement.className
