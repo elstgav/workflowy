@@ -1,3 +1,13 @@
+/**
+ * ============================== !!DEPRECATED!! ===============================
+ * This script is no longer maintained and is kept for archival purposes only.
+ * WorkFlowy has implemented a native code block feature, so this script is no
+ * longer necessary.
+ *
+ * SEE: https://blog.workflowy.com/code-blocks-inline-code-quotes-strikethrough/
+ * ============================================================================
+ */
+
 // ==UserScript==
 // @name         WorkFlowy Inline Code Formatting
 // @version      1.0
@@ -7,6 +17,8 @@
 // @grant        none
 // @run-at       document-end
 // ==/UserScript==
+
+// @ts-nocheck - Deprecated script
 
 ;(() => {
   let currentBullet
