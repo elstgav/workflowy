@@ -20,15 +20,17 @@
 
   document.body.appendChild(externalLink)
 
-  function openLinksNatively(...args) {
-    const [url] = args
+  /** @type {typeof window.open} */
+  const openLinksNatively = (...args) => {
+    const url = String(args[0])
 
     if (args.length > 2 || url.includes('workflowy.com') || !url.startsWith('http'))
       return originalOpen(...args)
 
     externalLink.href = url
+    externalLink.click()
 
-    return externalLink.click()
+    return null
   }
 
   window.open = openLinksNatively
