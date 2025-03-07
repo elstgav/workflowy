@@ -1,0 +1,61 @@
+// Base TypeScript configuration
+//
+// Settings that are common for all TypeScript tools (e.g. IDEs, Intellisense,
+// etc.) and compilation output (e.g. tsc output, production builds, etc.)
+//
+// Assumes the project is intended for browser use. For Node.js projects, see
+// node.tsconfig.json.
+//
+// SEE: https://www.typescriptlang.org/tsconfig
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+
+  "compilerOptions": {
+    /* Language and Environment
+     * ------------------------------------------ */
+
+    "target": "ES2022", // Set the JavaScript language version for emitted JavaScript and include compatible library declarations.
+
+    /* Modules
+     * ------------------------------------------ */
+
+    "module": "ES2022", // Specify what module code is generated.
+
+    /* JavaScript Support
+     * ------------------------------------------ */
+
+    "allowJs": true,
+    "checkJs": true,
+
+    /* Emit Output
+     * ------------------------------------------ */
+
+    // Do not emit files by default. This is a base configuration for development tools.
+    // Projects that emit files should create a separate ./tsconfig.build.json for build configuration
+    "noEmit": true,
+
+    /* Interop Constraints
+     * ------------------------------------------ */
+
+    "esModuleInterop": true, // Emit additional JavaScript to ease support for importing CommonJS modules
+    "forceConsistentCasingInFileNames": true, // Ensure that casing is correct in imports
+    "isolatedModules": true, // Ensure each file can be safely transpiled without relying on other imports
+
+    /* Type Checking
+     * ------------------------------------------ */
+
+    "strict": true, // Enable all strict type-checking options
+    "strictNullChecks": true,
+
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+
+    /* Completeness
+     * ------------------------------------------ */
+
+    "skipLibCheck": true // Save compilation time by skipping type checks of all .d.ts files
+  },
+
+  "include": ["**/*"] // Type check all files (only matches JS/TS files)
+}

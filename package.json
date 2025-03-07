@@ -1,0 +1,7 @@
+{
+  "name": "workflowy",
+  "private": true,
+  "dependencies": {
+    "typescript": "^5.8.2"
+  }
+}
