@@ -202,7 +202,7 @@
     return element
   }
 
-  const searchAndReplaceIcon = createElementFromHTML(
+  const findAndReplaceIcon = createElementFromHTML(
     `<svg width="16" height="14" viewBox="151.06 159 449.9 435"><path d="M387.84 302.6c3.316 3.316 8.05 5.21 12.785 5.21s9.473-1.894 12.785-5.21a18.005 18.005 0 0 0 0-25.574l-21.785-21.785h118.87v138.76c0 9.945 8.05 17.996 17.996 17.996 9.945 0 17.996-8.05 17.996-17.996l.008-157.23c0-9.945-8.051-17.996-17.996-17.996h-137.34l21.785-21.785a18.005 18.005 0 0 0 0-25.574 18.005 18.005 0 0 0-25.574 0l-52.094 52.566a18.005 18.005 0 0 0 0 25.574zM294.55 290.76v-107.5c0-9.945-8.05-17.996-17.996-17.996h-107.5c-9.945 0-17.996 8.05-17.996 17.996v107.5c0 9.945 8.05 17.996 17.996 17.996h107.5c9.945 0 17.996-8.05 17.996-17.996zm-35.992-18.469h-71.039v-71.039h71.039zM364.16 449.41c-7.102-7.102-18.941-7.102-26.047 0a18.005 18.005 0 0 0 0 25.574l21.785 21.785h-118.87v-138.29c0-9.945-8.05-17.996-17.996-17.996-9.945 0-17.996 8.05-17.996 17.996v156.75c0 9.945 8.05 17.996 17.996 17.996h137.34L338.11 555.01a18.005 18.005 0 0 0 0 25.574c3.316 3.316 8.05 5.21 12.785 5.21 4.734 0 9.473-1.894 12.785-5.21l53.043-53.043c3.316-3.316 5.21-8.05 5.21-12.785s-1.894-9.473-5.21-12.785zM582.96 443.25h-107.5c-9.945 0-17.996 8.05-17.996 17.996v107.5c0 9.945 8.05 17.996 17.996 17.996h107.5c9.945 0 17.996-8.05 17.996-17.996v-107.5c0-9.945-8.05-17.996-17.996-17.996zm-18.469 107.5h-71.039v-71.039h71.039z" fill="currentColor"></path></svg>`,
   )
 
@@ -218,7 +218,7 @@
     </style>`.replace(/\s/, ' '),
   )
 
-  const addButton = () => {
+  const addFindAndReplaceButton = () => {
     if (document.querySelectorAll('.gavin-find-and-replace-button').length) return
 
     try {
@@ -236,7 +236,7 @@
 
       // Build our button
       const button = /** @type {HTMLButtonElement} */ (starButton.cloneNode(true))
-      button.querySelector('svg')?.replaceWith(searchAndReplaceIcon)
+      button.querySelector('svg')?.replaceWith(findAndReplaceIcon)
       button.onclick = findAndReplace
       button.title = 'Find & Replace'
       button.classList.add('gavin-find-and-replace-button')
@@ -259,16 +259,11 @@
   const appObserver = new MutationObserver(() => {
     searchInput = /** @type {HTMLInputElement} */ (document.getElementById('srch-input'))
 
-    if (!searchInput) return
+    if (!searchInput?.value) return
 
     appObserver.disconnect()
 
-    if (!!searchInput.value) {
-      // Currently searching
-      requestAnimationFrame(addButton)
-    }
-
-    searchInput.addEventListener('keyup', () => requestAnimationFrame(addButton), { once: true })
+    requestAnimationFrame(addFindAndReplaceButton)
   })
 
   document.head.appendChild(style)
