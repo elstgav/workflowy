@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WorkFlowy Find & Replace
 // @namespace    https://rawbytz.wordpress.com
-// @version      2.1
+// @version      2.4
 // @description  Find & Replace
 // @author       rawbytz and Gavin Elster
 // @match        https://workflowy.com/*
@@ -76,7 +76,7 @@
         .replace(/&/g, '&amp;')
         .replace(/>/g, '&gt;')
         .replace(/</g, '&lt;')
-        .replace(/\u00A0/g, ' ')
+        .replace(/\u00A0/g, '&nbsp;')
 
     function replaceMatches(items, rgx, r) {
       window.WF.editGroup(function () {
@@ -105,7 +105,7 @@
       const addButton = (num, name) =>
         `<button type="button" class="btnX" id="btn${num.toString()}">${name}</button>`
       const boxStyle = `#inputBx{${getColors()}width:95%;height:20px;display:block;margin-top:5px;border:1px solid #ccc;border-radius:4px;padding:4px}`
-      const btnStyle = `.btnX{font-size:18px;background-color:steelblue;border:2px solid;border-radius:20px;color:#fff;padding:5px 15px;margin-top:16px;margin-right:16px}.btnX:focus{border-color:#c4c4c4}`
+      const btnStyle = `.btnX{font-size:18px;background-color:gray;border:2px solid;border-radius:20px;color:#fff;padding:5px 15px;margin-top:16px;margin-right:16px}.btnX:focus,.btnX:hover{border-color:#c4c4c4;background-color:steelblue}`
       const box = `<div><b>Replace:</b><input value="${htmlEscText(
         searchValue,
       )}" id="inputBx" type="text" spellcheck="false"></div>`
@@ -115,34 +115,36 @@
         `<style>${boxStyle + btnStyle}</style><div>${BODY}</div>${box}<div>${buttons}</div>`,
         TITLE,
       )
-      setTimeout(function () {
-        let userInput
-        const inputBx = document.getElementById('inputBx')
-        const btn1 = document.getElementById('btn1')
-        const btn2 = document.getElementById('btn2')
-        inputBx.select()
-        inputBx.addEventListener('keyup', function (event) {
-          if (event.key === 'Enter') {
-            btn1.click()
+      const intervalId = setInterval(function () {
+        let inputBx = document.getElementById('inputBx')
+        if (inputBx) {
+          clearInterval(intervalId)
+          let userInput
+          const btn1 = document.getElementById('btn1')
+          const btn2 = document.getElementById('btn2')
+          inputBx.select()
+          inputBx.addEventListener('keyup', function (event) {
+            if (event.key === 'Enter') {
+              btn1.click()
+            }
+          })
+          btn1.onclick = function () {
+            userInput = inputBx.value
+            window.WF.hideDialog()
+            setTimeout(function () {
+              replaceMatches(Matches, rgx_gi, userInput)
+            }, 50)
           }
-        })
-        btn1.onclick = function () {
-          userInput = inputBx.value
-          window.WF.hideDialog()
-          setTimeout(function () {
-            replaceMatches(Matches, rgx_gi, userInput)
-          }, 50)
+          btn2.onclick = function () {
+            userInput = inputBx.value
+            window.WF.hideDialog()
+            setTimeout(function () {
+              replaceMatches(Matches, rgx_g, userInput)
+            }, 50)
+          }
         }
-        btn2.onclick = function () {
-          userInput = inputBx.value
-          window.WF.hideDialog()
-          setTimeout(function () {
-            replaceMatches(Matches, rgx_g, userInput)
-          }, 50)
-        }
-      }, 100)
+      }, 50)
     }
-
     if (!window.WF.currentSearchQuery()) {
       return void toastMsg(
         'Use the searchbox to find. <a href="https://workflowy.com/s/findreplace-bookmark/ynKNSb5dA77p2siT" target="_blank">Click here for more information.</a>',
