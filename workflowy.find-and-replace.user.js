@@ -14,12 +14,15 @@
 // ==/UserScript==
 
 ;(() => {
+  'use strict'
+
+  /** @type {HTMLInputElement} */
   let searchInput
 
   const findAndReplace = () => {
     function toastMsg(str, sec, err) {
-      WF.showMessage(str, err)
-      setTimeout(WF.hideMessage, (sec || 2) * 1000)
+      window.WF.showMessage(str, err)
+      setTimeout(window.WF.hideMessage, (sec || 2) * 1000)
     }
 
     function applyToEachItem(functionToApply, parent) {
@@ -41,7 +44,7 @@
     }
 
     function editableItemWithVisibleMatch(item) {
-      const isVisible = WF.completedVisible() || !item.isWithinCompleted()
+      const isVisible = window.WF.completedVisible() || !item.isWithinCompleted()
       return (
         item.data.search_result &&
         item.data.search_result.matches &&
@@ -76,16 +79,16 @@
         .replace(/\u00A0/g, ' ')
 
     function replaceMatches(items, rgx, r) {
-      WF.editGroup(function () {
+      window.WF.editGroup(function () {
         items.forEach(item => {
           let result = item.data.search_result
           if (result.nameMatches)
-            WF.setItemName(item, item.getName().replace(rgx, htmlEscTextForContent(r)))
+            window.WF.setItemName(item, item.getName().replace(rgx, htmlEscTextForContent(r)))
           if (result.noteMatches)
-            WF.setItemNote(item, item.getNote().replace(rgx, htmlEscTextForContent(r)))
+            window.WF.setItemNote(item, item.getNote().replace(rgx, htmlEscTextForContent(r)))
         })
       })
-      r === '' ? WF.clearSearch() : WF.search(tQuery.replace(find, r))
+      r === '' ? window.WF.clearSearch() : window.WF.search(tQuery.replace(find, r))
     }
 
     const htmlEscText = str =>
@@ -108,7 +111,7 @@
       )}" id="inputBx" type="text" spellcheck="false"></div>`
       const buttons =
         addButton(1, `Replace: All (${aCount})`) + addButton(2, `Replace: Match Case (${cCount})`)
-      WF.showAlertDialog(
+      window.WF.showAlertDialog(
         `<style>${boxStyle + btnStyle}</style><div>${BODY}</div>${box}<div>${buttons}</div>`,
         TITLE,
       )
@@ -125,14 +128,14 @@
         })
         btn1.onclick = function () {
           userInput = inputBx.value
-          WF.hideDialog()
+          window.WF.hideDialog()
           setTimeout(function () {
             replaceMatches(Matches, rgx_gi, userInput)
           }, 50)
         }
         btn2.onclick = function () {
           userInput = inputBx.value
-          WF.hideDialog()
+          window.WF.hideDialog()
           setTimeout(function () {
             replaceMatches(Matches, rgx_g, userInput)
           }, 50)
@@ -140,7 +143,7 @@
       }, 100)
     }
 
-    if (!WF.currentSearchQuery()) {
+    if (!window.WF.currentSearchQuery()) {
       return void toastMsg(
         'Use the searchbox to find. <a href="https://workflowy.com/s/findreplace-bookmark/ynKNSb5dA77p2siT" target="_blank">Click here for more information.</a>',
         3,
@@ -148,8 +151,8 @@
       )
     }
 
-    const tQuery = WF.currentSearchQuery().trim()
-    const Matches = findMatchingItems(editableItemWithVisibleMatch, WF.currentItem())
+    const tQuery = window.WF.currentSearchQuery().trim()
+    const Matches = findMatchingItems(editableItemWithVisibleMatch, window.WF.currentItem())
     const isQuoted = tQuery.match(/(")(.+)(")/)
     const find = isQuoted ? isQuoted[2] : tQuery.includes(' ') ? false : tQuery
 
@@ -159,14 +162,14 @@
           'The search contains at least one space.\n\n1. Press OK to convert your search to "exact match".\n\n2. Activate Find/Replace again.',
         )
       ) {
-        WF.search('"' + tQuery + '"')
+        window.WF.search('"' + tQuery + '"')
       }
       return
     }
 
     const title = 'Find/Replace'
     const modeTxt = isQuoted ? 'Exact Match, ' : 'Single Word/Tag, '
-    const compTxt = `Completed: ${WF.completedVisible() ? 'Included' : 'Excluded'}`
+    const compTxt = `Completed: ${window.WF.completedVisible() ? 'Included' : 'Excluded'}`
     const findTxt = isQuoted ? isQuoted[0] : tQuery
     const body = `<p><b>Mode:</b><br>${modeTxt + compTxt}</p><p><b>Find:</b><br>${htmlEscText(
       findTxt,
@@ -180,17 +183,24 @@
     if (allCount > 0) {
       showFindReplaceDialog(body, title, allCount, caseCount, find)
     } else {
-      WF.showAlertDialog(`${body}<br><br><i>No matches found.</i>`, title)
+      window.WF.showAlertDialog(`${body}<br><br><i>No matches found.</i>`, title)
     }
   }
 
+  /**
+   * Gavin’s additions: ----------------------------------------------------------------------------
+   */
+
+  /** @param {string} html */
   const createElementFromHTML = html => {
     const template = document.createElement('template')
     template.innerHTML = html.trim()
-    return template.content.firstChild
+    const element = template.content.firstChild
+    if (!element) throw new Error('Gavin: Unable to create element')
+    return element
   }
 
-  const icon = createElementFromHTML(
+  const searchAndReplaceIcon = createElementFromHTML(
     `<svg width="16" height="14" viewBox="151.06 159 449.9 435"><path d="M387.84 302.6c3.316 3.316 8.05 5.21 12.785 5.21s9.473-1.894 12.785-5.21a18.005 18.005 0 0 0 0-25.574l-21.785-21.785h118.87v138.76c0 9.945 8.05 17.996 17.996 17.996 9.945 0 17.996-8.05 17.996-17.996l.008-157.23c0-9.945-8.051-17.996-17.996-17.996h-137.34l21.785-21.785a18.005 18.005 0 0 0 0-25.574 18.005 18.005 0 0 0-25.574 0l-52.094 52.566a18.005 18.005 0 0 0 0 25.574zM294.55 290.76v-107.5c0-9.945-8.05-17.996-17.996-17.996h-107.5c-9.945 0-17.996 8.05-17.996 17.996v107.5c0 9.945 8.05 17.996 17.996 17.996h107.5c9.945 0 17.996-8.05 17.996-17.996zm-35.992-18.469h-71.039v-71.039h71.039zM364.16 449.41c-7.102-7.102-18.941-7.102-26.047 0a18.005 18.005 0 0 0 0 25.574l21.785 21.785h-118.87v-138.29c0-9.945-8.05-17.996-17.996-17.996-9.945 0-17.996 8.05-17.996 17.996v156.75c0 9.945 8.05 17.996 17.996 17.996h137.34L338.11 555.01a18.005 18.005 0 0 0 0 25.574c3.316 3.316 8.05 5.21 12.785 5.21 4.734 0 9.473-1.894 12.785-5.21l53.043-53.043c3.316-3.316 5.21-8.05 5.21-12.785s-1.894-9.473-5.21-12.785zM582.96 443.25h-107.5c-9.945 0-17.996 8.05-17.996 17.996v107.5c0 9.945 8.05 17.996 17.996 17.996h107.5c9.945 0 17.996-8.05 17.996-17.996v-107.5c0-9.945-8.05-17.996-17.996-17.996zm-18.469 107.5h-71.039v-71.039h71.039z" fill="currentColor"></path></svg>`,
   )
 
@@ -209,34 +219,43 @@
   const addButton = () => {
     if (document.querySelectorAll('.gavin-find-and-replace-button').length) return
 
-    // Find our elements
-    const searchWrapper = searchInput.closest('label').parentElement
-    const starButton = searchWrapper.querySelector(
-      'svg[width="20"][height="20"][fill="none"]',
-    ).parentElement
-    const buttonsWrapper = starButton.parentElement
+    try {
+      // Find our elements
 
-    // Build our button
-    const button = starButton.cloneNode(true)
-    button.querySelector('svg').replaceWith(icon)
-    button.onclick = findAndReplace
-    button.title = 'Find & Replace'
-    button.classList.add('gavin-find-and-replace-button')
+      const searchWrapper = /** @type {HTMLDivElement} */ (
+        searchInput.closest('label')?.parentElement
+      )
 
-    // TODO: Mobile input has 1px padding, so this breaks
-    // // Increase padding for search input
-    // const paddingRight = getComputedStyle(searchInput).paddingRight
-    // if (!paddingRight.includes('px'))
-    //   throw new Error('Gavin: Unable to parse search input padding; doesn’t use px')
-    //
-    // searchInput.style.paddingRight = `${Number.parseInt(paddingRight) + 30}px`
+      const starButton = /** @type {HTMLButtonElement} */ (
+        searchWrapper.querySelector('svg[width="20"][height="20"][fill="none"]')?.parentElement
+      )
 
-    // Append the button
-    buttonsWrapper.firstChild.before(button)
+      const buttonsWrapper = /** @type {HTMLDivElement} */ (starButton?.parentElement)
+
+      // Build our button
+      const button = /** @type {HTMLButtonElement} */ (starButton.cloneNode(true))
+      button.querySelector('svg')?.replaceWith(searchAndReplaceIcon)
+      button.onclick = findAndReplace
+      button.title = 'Find & Replace'
+      button.classList.add('gavin-find-and-replace-button')
+
+      // TODO: Mobile input has 1px padding, so this breaks
+      // // Increase padding for search input
+      // const paddingRight = getComputedStyle(searchInput).paddingRight
+      // if (!paddingRight.includes('px'))
+      //   throw new Error('Gavin: Unable to parse search input padding; doesn’t use px')
+      //
+      // searchInput.style.paddingRight = `${Number.parseInt(paddingRight) + 30}px`
+
+      // Append the button
+      buttonsWrapper.firstChild?.before(button)
+    } catch (error) {
+      console.error('Gavin: Unable to add find and replace button', error)
+    }
   }
 
   const appObserver = new MutationObserver(() => {
-    searchInput = document.getElementById('srch-input')
+    searchInput = /** @type {HTMLInputElement} */ (document.getElementById('srch-input'))
 
     if (!searchInput) return
 
@@ -244,10 +263,10 @@
 
     if (!!searchInput.value) {
       // Currently searching
-      addButton()
-    } else {
-      searchInput.addEventListener('keyup', addButton, { once: true })
+      requestAnimationFrame(addButton)
     }
+
+    searchInput.addEventListener('keyup', () => requestAnimationFrame(addButton), { once: true })
   })
 
   document.head.appendChild(style)
