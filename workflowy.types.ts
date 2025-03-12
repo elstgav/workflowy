@@ -47,25 +47,25 @@ export interface Item {
   /** @since 5/28/19 */
   getNextVisibleSibling: (
     /** @default false */
-    ignoreSearch: boolean,
+    ignoreSearch?: boolean,
   ) => Item | null
 
   /** @since 5/28/19 */
   getPreviousVisibleSibling: (
     /** @default false */
-    ignoreSearch: boolean,
+    ignoreSearch?: boolean,
   ) => Item | null
 
   /** @deprecated since 5/28/19. Renamed to {@link Item.getNextVisibleSibling} */
   getNextPotentiallyVisibleSibling: (
     /** @default false */
-    ignoreSearch: boolean,
+    ignoreSearch?: boolean,
   ) => Item | null
 
   /** @deprecated since 5/28/19. Renamed to {@link Item.getPreviousVisibleSibling} */
   getPreviousPotentiallyVisibleSibling: (
     /** @default false */
-    ignoreSearch: boolean,
+    ignoreSearch?: boolean,
   ) => Item | null
 
   // Item information
