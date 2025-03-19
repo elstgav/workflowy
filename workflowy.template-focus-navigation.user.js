@@ -15,24 +15,21 @@
 ;(() => {
   'use strict'
 
-  /** @type {ExtensionsAPI} */
-  let WF
-  /** @type {Item | null} */
-  let prevFocusItem = null
-  /** @type {Item | null} */
-  let nextFocusItem = null
+  let WF = window.WF
+  let prevFocusItem = /** @type {Item | null} */ (null)
+  let nextFocusItem = /** @type {Item | null} */ (null)
 
   const TEMPLATE_NAME_REGEX = /(?<=^|\s+)#(?:template|use-template:\w+)(?=\b|$)/i
 
   const isTemplateItem = (/** @type {Item} */ item) =>
     item.getNameInPlainText().match(TEMPLATE_NAME_REGEX)
 
-  function handleFocusOut() {
+  const handleFocusOut = () => {
     prevFocusItem = nextFocusItem
     nextFocusItem = null
   }
 
-  function handleFocusIn() {
+  const handleFocusIn = () => {
     nextFocusItem = WF.focusedItem()
 
     console.log(
@@ -42,8 +39,7 @@
     )
   }
 
-  /** @param {KeyboardEvent} event */
-  function handleKeyDown(event) {
+  const handleKeyDown = (/** @type {KeyboardEvent} */ event) => {
     if (!event.key.startsWith('Arrow')) return
 
     const selection = window.getSelection()
@@ -82,8 +78,7 @@
   }
 
   const moveFocusToItemAbove = () => {
-    /** @type {Item | null | undefined} */
-    let itemAbove
+    let itemAbove = /** @type {Item | null | undefined} */ (undefined)
 
     if (!prevFocusItem) return
 
@@ -112,8 +107,7 @@
   }
 
   const moveFocusToItemBelow = () => {
-    /** @type {Item | null | undefined} */
-    let itemBelow
+    let itemBelow = /** @type {Item | null | undefined} */ (undefined)
 
     if (!prevFocusItem) return
 
