@@ -22,6 +22,11 @@
   /** @type {Item | null} */
   let nextFocusItem = null
 
+  const TEMPLATE_NAME_REGEX = /(?<=^|\s+)#(?:template|use-template:\w+)(?=\b|$)/i
+
+  const isTemplateItem = (/** @type {Item} */ item) =>
+    item.getNameInPlainText().match(TEMPLATE_NAME_REGEX)
+
   function handleFocusOut() {
     prevFocusItem = nextFocusItem
     nextFocusItem = null
@@ -75,9 +80,6 @@
         return
     }
   }
-
-  /** @param {Item} item */
-  const isTemplateItem = item => item.getNameInPlainText().match(/ #(template|use-template:\w+)$/)
 
   const moveFocusToItemAbove = () => {
     /** @type {Item | null | undefined} */
