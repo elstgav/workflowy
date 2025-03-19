@@ -30,6 +30,8 @@
   }
 
   const handleFocusIn = () => {
+    if (!WF) return
+
     nextFocusItem = WF.focusedItem()
 
     console.log(
@@ -80,7 +82,7 @@
   const moveFocusToItemAbove = () => {
     let itemAbove = /** @type {Item | null | undefined} */ (undefined)
 
-    if (!prevFocusItem) return
+    if (!prevFocusItem || !WF) return
 
     const prevSibling = prevFocusItem.getPreviousVisibleSibling()
     const parent = prevFocusItem.getParent()
@@ -109,7 +111,7 @@
   const moveFocusToItemBelow = () => {
     let itemBelow = /** @type {Item | null | undefined} */ (undefined)
 
-    if (!prevFocusItem) return
+    if (!prevFocusItem || !WF) return
 
     // “visible” means “not completed”, not “visible in the DOM”
     const firstChild = prevFocusItem.getVisibleChildren()[0]
@@ -131,7 +133,7 @@
   const initializer = new MutationObserver(() => {
     const page = /** @type {HTMLDivElement} */ (document.querySelector('.page.active'))
 
-    if (!page && !window.WF) return
+    if (!page || !window.WF) return
 
     initializer.disconnect()
 

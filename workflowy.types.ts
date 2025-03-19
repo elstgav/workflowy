@@ -257,18 +257,4 @@ export interface ExtensionsAPI {
   getItemDOMElement: (item: Item) => HTMLElement
 }
 
-declare global {
-  interface Window {
-    WF: ExtensionsAPI
-
-    /**
-     * If a global WFEventListener is defined, it will be called with every
-     * event that occurs in Workflowy.
-     *
-     * @alpha very experimental and likely to change!
-     */
-    WFEventListener: (event: WFEvent) => void
-  }
-}
-
 export {}
