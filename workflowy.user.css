@@ -19,8 +19,25 @@ body {
   background-color: rgb(42, 49, 53);
 }
 
+/*
+ * Disable custom scrollbar
+ * - Prevents layout shift when scrollbar appears
+ * - Stops overriding system preference for auto-hide scrollbar
+ * - Unfortunately, once it’s been customized, I don’t see a way to revert to
+ *   the native scrollbar
+ */
+::-webkit-scrollbar,
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-thumb:hover {
+  width: 0 !important;
+  height: 0 !important;
+  background-color: initial !important;
+  border-radius: initial !important;
+}
+
 /* Hide star menu from header */
-.header > .starMenu {
+.header > div:has(svg[data-icon='star']) {
   display: none;
 }
 
@@ -36,9 +53,9 @@ body {
 }
 
 /* Fix flex wrapping of bullet content (wraps too early) */
-.content .innerContentContainer {
+/* .content .innerContentContainer {
   width: 100%;
-}
+} */
 
 /* Indent checkbox notes */
 .checkmark.noted > .notes > .content {
