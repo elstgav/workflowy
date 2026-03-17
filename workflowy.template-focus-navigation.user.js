@@ -34,11 +34,11 @@
 
     nextFocusItem = WF.focusedItem()
 
-    console.log(
-      `Switched focus: ${prevFocusItem?.getNameInPlainText() ?? '[not an item]'} → ${
-        nextFocusItem?.getNameInPlainText() ?? '[not an item]'
-      }`,
-    )
+    // console.log(
+    //   `Switched focus: ${prevFocusItem?.getNameInPlainText() ?? '[not an item]'} → ${
+    //     nextFocusItem?.getNameInPlainText() ?? '[not an item]'
+    //   }`,
+    // )
   }
 
   const handleKeyDown = (/** @type {KeyboardEvent} */ event) => {
@@ -46,19 +46,17 @@
 
     const selection = window.getSelection()
 
-    console.log(
-      `${event.key} pressed: ${prevFocusItem?.getNameInPlainText() ?? '[not an item]'} → ${
-        nextFocusItem?.getNameInPlainText() ?? '[not an item]'
-      }`,
-    )
+    // console.log(
+    //   `${event.key} pressed: ${prevFocusItem?.getNameInPlainText() ?? '[not an item]'} → ${
+    //     nextFocusItem?.getNameInPlainText() ?? '[not an item]'
+    //   }`,
+    // )
 
     if (!prevFocusItem) return
     if (selection?.type !== 'Caret') return // Only interested in cursor movement
     if (nextFocusItem) {
       if (prevFocusItem.equals(nextFocusItem)) return // No change in items
       if (isTemplateItem(nextFocusItem)) {
-        // // The incoming focused item might be a template item, in which case focus it
-        // setTimeout(highlightTemplateButtonIfFocused, 0)
         nextFocusItem.getElement()?.querySelector('button')?.focus()
         return
       }
