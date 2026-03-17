@@ -10,7 +10,7 @@
 
 // ==/UserScript==
 
-/** @import { ExtensionsAPI, Item } from './workflowy.types' */
+/** @import { ExtensionsAPI, Item } from '../workflowy.types' */
 
 ;(() => {
   'use strict'
