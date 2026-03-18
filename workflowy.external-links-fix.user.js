@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         WorkFlowy External Links Fix
+// @name         WorkFlowy - External Links Fix
 // @version      1.0
 // @description  Ensure external links open with default native behavior. (e.g. open in the default
 //               browser when running as a web app).

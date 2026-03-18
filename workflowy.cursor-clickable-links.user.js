@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         WorkFlowy - Open Link shortcut
+// @name         WorkFlowy - Open Links shortcut
 // @version      1.0
 // @description  Open links with a key command in WorkFlowy
 // @author       Gavin Elster

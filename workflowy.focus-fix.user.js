@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         WorkFlowy Focus Fix
+// @name         WorkFlowy - Focus Fix
 // @namespace    https://rawbytz.wordpress.com
 // @version      2.4
 // @description  Fix WorkFlowy lost focus
