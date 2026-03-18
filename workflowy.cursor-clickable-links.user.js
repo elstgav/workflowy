@@ -15,7 +15,7 @@
 
   /** @param {KeyboardEvent} event */
   function handleKeyDown(event) {
-    const ctrlAltDown = event.ctrlKey && event.altKey && event.key === 'ArrowDown'
+    const ctrlAltDown = event.ctrlKey && event.key === '.'
 
     if (!ctrlAltDown) return
 
