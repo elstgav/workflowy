@@ -11,7 +11,6 @@
 // ==/UserScript==
 
 ;(function () {
-  const originalOpen = window.open
   const externalLink = document.createElement('a')
 
   externalLink.id = 'userscript--external-link-fix'
@@ -20,18 +19,17 @@
 
   document.body.appendChild(externalLink)
 
-  /** @type {typeof window.open} */
-  const openLinksNatively = (...args) => {
-    const url = String(args[0])
+  document.addEventListener(
+    'click',
+    event => {
+      if (!(event.target instanceof HTMLAnchorElement)) return
+      if (event.target.href.includes('workflowy.com')) return
+      if (!event.target.href.startsWith('http')) return
 
-    if (args.length > 2 || url.includes('workflowy.com') || !url.startsWith('http'))
-      return originalOpen(...args)
-
-    externalLink.href = url
-    externalLink.click()
-
-    return null
-  }
-
-  window.open = openLinksNatively
+      externalLink.href = event.target.href
+      externalLink.click()
+      event.stopPropagation()
+    },
+    true,
+  )
 })()
