@@ -52,5 +52,10 @@
     "skipLibCheck": true // Save compilation time by skipping type checks of all .d.ts files
   },
 
-  "include": ["**/*"] // Type check all files (only matches JS/TS files)
+  "include": [
+    "environment.d.ts",
+    "workflowy.types.ts",
+    "workflowy.*.user.js"
+  ],
+  "exclude": ["archive", "node_modules"]
 }
