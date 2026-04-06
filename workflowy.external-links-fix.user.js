@@ -4,7 +4,16 @@
 // @description  Ensure external links open with default native behavior. (e.g. open in the default
 //               browser when running as a web app).
 // @author       Gavin Elster
+// @license      MIT
+//
+// @homepageURL  https://github.com/elstgav/workflowy
+// @supportURL   https://github.com/elstgav/workflowy/issues
+// @downloadURL  https://raw.githubusercontent.com/elstgav/workflowy/main/workflowy.external-links-fix.user.js
+// @updateURL    https://raw.githubusercontent.com/elstgav/workflowy/main/workflowy.external-links-fix.user.js
+//
 // @match        https://workflowy.com/*
+// @match        https://*.workflowy.com/*
+//
 // @grant        none
 // @run-at       document-end
 

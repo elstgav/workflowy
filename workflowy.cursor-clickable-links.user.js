@@ -3,8 +3,16 @@
 // @version      1.0
 // @description  Open links with a key command in WorkFlowy
 // @author       Gavin Elster
+// @license      MIT
+//
+// @homepageURL  https://github.com/elstgav/workflowy
+// @supportURL   https://github.com/elstgav/workflowy/issues
+// @downloadURL  https://raw.githubusercontent.com/elstgav/workflowy/main/workflowy.cursor-clickable-links.user.js
+// @updateURL    https://raw.githubusercontent.com/elstgav/workflowy/main/workflowy.cursor-clickable-links.user.js
+//
 // @match        https://workflowy.com/*
 // @match        https://*.workflowy.com/*
+//
 // @grant        none
 // @run-at       document-end
 

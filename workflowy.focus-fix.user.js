@@ -4,10 +4,16 @@
 // @version      2.4
 // @description  Fix WorkFlowy lost focus
 // @author       rawbytz
+// @license      MIT
+//
+// @homepageURL  https://github.com/elstgav/workflowy
+// @supportURL   https://github.com/elstgav/workflowy/issues
+// @downloadURL  https://raw.githubusercontent.com/elstgav/workflowy/main/workflowy.focus-fix.user.js
+// @updateURL    https://raw.githubusercontent.com/elstgav/workflowy/main/workflowy.focus-fix.user.js
+//
 // @match        https://workflowy.com/*
 // @match        https://*.workflowy.com/*
-// @updateUrl    https://github.com/rawbytz/focus-fix/raw/master/focusFix.user.js
-// @downloadUrl  https://github.com/rawbytz/focus-fix/raw/master/focusFix.user.js
+//
 // @grant        none
 // @run-at       document-end
 
