@@ -53,11 +53,11 @@
       )
     }
 
-    const escapeForRegExp = str => str.replace(/[-\[\]{}()*+?.,\\^$|#]/g, '\\$&')
+    const escapeForRegExp = (str) => str.replace(/[-\[\]{}()*+?.,\\^$|#]/g, '\\$&')
 
     function countMatches(items, rgx) {
       let matchCount = 0
-      items.forEach(item => {
+      items.forEach((item) => {
         let result = item.data.search_result
         if (result.nameMatches) {
           let nameMatch = item.getName().match(rgx)
@@ -71,7 +71,7 @@
       return matchCount
     }
 
-    const htmlEscTextForContent = str =>
+    const htmlEscTextForContent = (str) =>
       str
         .replace(/&/g, '&amp;')
         .replace(/>/g, '&gt;')
@@ -80,7 +80,7 @@
 
     function replaceMatches(items, rgx, r) {
       window.WF.editGroup(function () {
-        items.forEach(item => {
+        items.forEach((item) => {
           let result = item.data.search_result
           if (result.nameMatches)
             window.WF.setItemName(item, item.getName().replace(rgx, htmlEscTextForContent(r)))
@@ -91,7 +91,7 @@
       r === '' ? window.WF.clearSearch() : window.WF.search(tQuery.replace(find, r))
     }
 
-    const htmlEscText = str =>
+    const htmlEscText = (str) =>
       str.replace(/&/g, '&amp;').replace(/>/g, '&gt;').replace(/</g, '&lt;').replace(/"/g, '&quot;')
 
     function getColors() {
@@ -194,7 +194,7 @@
    */
 
   /** @param {string} html */
-  const createElementFromHTML = html => {
+  const createElementFromHTML = (html) => {
     const template = document.createElement('template')
     template.innerHTML = html.trim()
     const element = template.content.firstChild

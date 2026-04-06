@@ -35,7 +35,7 @@
   }
 
   const otherListeners = window.WFEventListener
-  window.WFEventListener = event => {
+  window.WFEventListener = (event) => {
     if (event !== 'locationChanged') return
     requestAnimationFrame(fixFocus)
 

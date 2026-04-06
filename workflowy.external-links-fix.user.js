@@ -10,7 +10,7 @@
 
 // ==/UserScript==
 
-;(function () {
+;(function externalLinksFix() {
   const externalLink = document.createElement('a')
 
   externalLink.id = 'userscript--external-link-fix'
@@ -21,7 +21,7 @@
 
   document.addEventListener(
     'click',
-    event => {
+    (event) => {
       if (!(event.target instanceof HTMLAnchorElement)) return
       if (event.target.href.includes('workflowy.com')) return
       if (!event.target.href.startsWith('http')) return

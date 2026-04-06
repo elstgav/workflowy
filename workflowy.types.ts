@@ -118,6 +118,11 @@ export interface Item {
   getElement: () => HTMLElement | null
 }
 
+export interface Tag {
+  index: number
+  tag: string
+}
+
 export interface ExtensionsAPI {
   // Tree traversal
   // ---------------------------------------------------------------------------
@@ -256,5 +261,3 @@ export interface ExtensionsAPI {
   /** @deprecated as of May 28th. Use {@link Item.getElement } */
   getItemDOMElement: (item: Item) => HTMLElement
 }
-
-export {}

@@ -14,7 +14,7 @@
   'use strict'
 
   /** @param {KeyboardEvent} event */
-  function handleKeyDown(event) {
+  const handleKeyDown = (event) => {
     const ctrlAltDown = event.ctrlKey && event.key === '.'
 
     if (!ctrlAltDown) return

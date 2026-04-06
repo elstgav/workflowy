@@ -144,7 +144,7 @@
     // browsers, and after WF has a chance to update .selectedItem().
     page.addEventListener('focusout', () => setTimeout(handleFocusOut, 0))
     page.addEventListener('focusin', () => setTimeout(handleFocusIn, 0))
-    page.addEventListener('keydown', event => setTimeout(() => handleKeyDown(event), 20))
+    page.addEventListener('keydown', (event) => setTimeout(() => handleKeyDown(event), 20))
   })
 
   initializer.observe(document.body, { subtree: true, childList: true })

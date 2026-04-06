@@ -27,7 +27,7 @@
   const INLINE_CODE = /`([^`]+)`/g
   const MANGLED_BACKTICK_ANCHOR_TAGS = /<\/a><a [^>]+ href="([^"]+)">`<\/a><a [^>]+ href="(\1)">/g
 
-  const createElementFromHTML = html => {
+  const createElementFromHTML = (html) => {
     const template = document.createElement('template')
     template.innerHTML = html.trim()
     return template.content.firstChild
@@ -51,37 +51,39 @@
     </style>`.replaceAll(/[\s\n]+/g, ' '),
   )
 
-  const highlight = container => {
+  const highlight = (container) => {
     if (!container) return
     if (document.getElementById('srch-input').value.includes('`')) return
 
-    container.querySelectorAll('.content[contenteditable] .innerContentContainer').forEach(item => {
-      requestAnimationFrame(() => {
-        if (
-          !item.textContent ||
-          item.innerHTML.includes('</code>') ||
-          !item.textContent.match(INLINE_CODE)
-        )
-          return
+    container
+      .querySelectorAll('.content[contenteditable] .innerContentContainer')
+      .forEach((item) => {
+        requestAnimationFrame(() => {
+          if (
+            !item.textContent ||
+            item.innerHTML.includes('</code>') ||
+            !item.textContent.match(INLINE_CODE)
+          )
+            return
 
-        // Handle mangled link wrapping
-        if (item.innerHTML.match(MANGLED_BACKTICK_ANCHOR_TAGS)?.length >= 2) {
-          item.innerHTML = item.innerHTML.replaceAll(MANGLED_BACKTICK_ANCHOR_TAGS, '`')
-        }
+          // Handle mangled link wrapping
+          if (item.innerHTML.match(MANGLED_BACKTICK_ANCHOR_TAGS)?.length >= 2) {
+            item.innerHTML = item.innerHTML.replaceAll(MANGLED_BACKTICK_ANCHOR_TAGS, '`')
+          }
 
-        item.innerHTML = item.innerHTML.replaceAll(
-          INLINE_CODE,
-          '<span class="gavin-backtick">`</span><code class="gavin-inline-code">$1</code><span class="gavin-backtick">`</span>',
-        )
+          item.innerHTML = item.innerHTML.replaceAll(
+            INLINE_CODE,
+            '<span class="gavin-backtick">`</span><code class="gavin-inline-code">$1</code><span class="gavin-backtick">`</span>',
+          )
+        })
       })
-    })
   }
 
   const currentBulletRoot = () => currentBullet?.closest('.project.root > .children > .project')
   const currentFocusRoot = () =>
     document.querySelector('.project.root > .children > .project:focus-within')
 
-  const currentBulletObserver = new MutationObserver(mutationList => {
+  const currentBulletObserver = new MutationObserver((mutationList) => {
     const prevOpen = mutationList[0].oldValue.includes('open')
     const nowOpen = mutationList[0].target.classList.contains('open')
     const toggled = prevOpen !== nowOpen
@@ -89,7 +91,7 @@
     if (toggled) highlight(currentFocusRoot())
   })
 
-  const onFocusIn = event => {
+  const onFocusIn = (event) => {
     // Handle previous focused bullet
     if (currentBullet) {
       currentBulletObserver.disconnect()
@@ -108,7 +110,7 @@
   }
 
   const existingListeners = window.WFEventListener
-  const onWFEvent = event => {
+  const onWFEvent = (event) => {
     existingListeners?.(event)
 
     switch (event) {
