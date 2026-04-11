@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         WorkFlowy - Open Links shortcut
+// @name         WorkFlowy - Open Link under cursor
 // @version      1.0
 // @description  Open links with a key command in WorkFlowy
 // @author       Gavin Elster
@@ -7,8 +7,8 @@
 //
 // @homepageURL  https://github.com/elstgav/workflowy
 // @supportURL   https://github.com/elstgav/workflowy/issues
-// @downloadURL  https://raw.githubusercontent.com/elstgav/workflowy/main/workflowy.cursor-clickable-links.user.js
-// @updateURL    https://raw.githubusercontent.com/elstgav/workflowy/main/workflowy.cursor-clickable-links.user.js
+// @downloadURL  https://raw.githubusercontent.com/elstgav/workflowy/main/workflowy.open-link-under-cursor.user.js
+// @updateURL    https://raw.githubusercontent.com/elstgav/workflowy/main/workflowy.open-link-under-cursor.user.js
 //
 // @match        https://workflowy.com/*
 // @match        https://*.workflowy.com/*
@@ -23,9 +23,7 @@
 
   /** @param {KeyboardEvent} event */
   const handleKeyDown = (event) => {
-    const ctrlAltDown = event.ctrlKey && event.key === '.'
-
-    if (!ctrlAltDown) return
+    if (!(event.ctrlKey && event.key === '.')) return
 
     const selection = window.getSelection()
 
