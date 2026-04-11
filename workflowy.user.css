@@ -42,7 +42,7 @@ body {
 }
 
 /* Show full, multi-line notes */
-.noted > .notes > .content {
+.noted > .notes > .content:not(:empty) {
   height: auto !important;
   max-height: inherit !important;
 
