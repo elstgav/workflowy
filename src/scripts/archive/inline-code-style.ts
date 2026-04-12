@@ -1,3 +1,12 @@
+// ==UserScript==
+// @name         WorkFlowy Inline Code Formatting
+// @description  Adds inline code formatting to WorkFlowy (e.g. `code`).
+// @author       Gavin Elster
+//
+// @grant        none
+// @run-at       document-end
+// ==/UserScript==
+
 /**
  * ============================== !!DEPRECATED!! ===============================
  * This script is no longer maintained and is kept for archival purposes only.
@@ -5,24 +14,8 @@
  * longer necessary.
  *
  * SEE: https://blog.workflowy.com/code-blocks-inline-code-quotes-strikethrough/
- * ============================================================================
+ * =============================================================================
  */
-
-// ==UserScript==
-// @name         WorkFlowy Inline Code Formatting
-// @version      2023.4.24
-// @author       Gavin Elster
-// @license      MIT
-//
-// @homepageURL  https://github.com/elstgav/workflowy
-// @namespace    https://github.com/elstgav
-// @supportURL   https://github.com/elstgav/workflowy/issues
-//
-// @match        https://workflowy.com/*
-// @match        https://*.workflowy.com/*
-// @grant        none
-// @run-at       document-end
-// ==/UserScript==
 
 import { WFEventListener } from '@/workflowy.types'
 

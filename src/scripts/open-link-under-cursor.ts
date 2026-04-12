@@ -1,23 +1,11 @@
 // ==UserScript==
 // @name         WorkFlowy - Open Link under cursor
-// @version      {YYYY.MM.DD}
 // @description  Open links with a key command in WorkFlowy
 // @author       Gavin Elster
-// @license      MIT
-//
-// @homepageURL  https://github.com/elstgav/workflowy
-// @namespace    https://github.com/elstgav
-// @supportURL   https://github.com/elstgav/workflowy/issues
-//
-// @match        https://workflowy.com/*
-// @match        https://*.workflowy.com/*
 //
 // @grant        none
 // @run-at       document-end
-
 // ==/UserScript==
-
-'use strict'
 
 document.addEventListener('keydown', (event: KeyboardEvent) => {
   if (!(event.ctrlKey && event.key === '.')) return

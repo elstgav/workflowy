@@ -3,16 +3,18 @@
 // @version      2026.4.11
 // @description  Fix cursor navigation when focused on a template button
 // @author       Gavin Elster
+// @version      2026.4.11
 // @license      MIT
 //
-// @homepageURL  https://github.com/elstgav/workflowy
 // @namespace    https://github.com/elstgav
+// @homepageURL  https://github.com/elstgav/workflowy
 // @supportURL   https://github.com/elstgav/workflowy/issues
+//
 // @downloadURL  https://raw.githubusercontent.com/elstgav/workflowy/main/dist/archive/workflowy.template-focus-navigation.user.js
 // @updateURL    https://raw.githubusercontent.com/elstgav/workflowy/main/dist/archive/workflowy.template-focus-navigation.user.js
 //
 // @match        https://workflowy.com/*
-// @match        https://*.workflowy.com/*
+//
 // @grant        none
 // @run-at       document-end
 

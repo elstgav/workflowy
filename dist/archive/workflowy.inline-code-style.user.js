@@ -1,17 +1,19 @@
 // ==UserScript==
 // @name         WorkFlowy Inline Code Formatting
-// @version      2026.4.11
+// @description  Adds inline code formatting to WorkFlowy (e.g. `code`).
 // @author       Gavin Elster
+// @version      2026.4.11
 // @license      MIT
 //
-// @homepageURL  https://github.com/elstgav/workflowy
 // @namespace    https://github.com/elstgav
+// @homepageURL  https://github.com/elstgav/workflowy
 // @supportURL   https://github.com/elstgav/workflowy/issues
+//
 // @downloadURL  https://raw.githubusercontent.com/elstgav/workflowy/main/dist/archive/workflowy.inline-code-style.user.js
 // @updateURL    https://raw.githubusercontent.com/elstgav/workflowy/main/dist/archive/workflowy.inline-code-style.user.js
 //
 // @match        https://workflowy.com/*
-// @match        https://*.workflowy.com/*
+//
 // @grant        none
 // @run-at       document-end
 // ==/UserScript==

@@ -1,20 +1,18 @@
 // ==UserScript==
 // @name         WorkFlowy - Focus Fix
-// @namespace    https://rawbytz.wordpress.com
-// @version      2026.4.11
 // @description  Fix WorkFlowy lost focus
-// @author       rawbytz
+// @author       rawbytz and Gavin Elster
+// @version      2026.4.11
 // @license      MIT
 //
+// @namespace    https://github.com/elstgav
 // @homepageURL  https://github.com/elstgav/workflowy
 // @supportURL   https://github.com/elstgav/workflowy/issues
+//
 // @downloadURL  https://raw.githubusercontent.com/elstgav/workflowy/main/dist/workflowy.focus-fix.user.js
 // @updateURL    https://raw.githubusercontent.com/elstgav/workflowy/main/dist/workflowy.focus-fix.user.js
-// @downloadURL  https://raw.githubusercontent.com/elstgav/workflowy/main/workflowy.focus-fix.user.js
-// @updateURL    https://raw.githubusercontent.com/elstgav/workflowy/main/workflowy.focus-fix.user.js
 //
 // @match        https://workflowy.com/*
-// @match        https://*.workflowy.com/*
 //
 // @grant        none
 // @run-at       document-end
@@ -22,7 +20,6 @@
 // ==/UserScript==
 
 //#region src/scripts/focus-fix.ts
-// @license      MIT
 const fixFocus = () => {
   const active = document.activeElement?.className
   if (!active || active.includes('searchBoxInput') || active.includes('content')) return

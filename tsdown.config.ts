@@ -4,6 +4,8 @@ import { execFileSync } from 'node:child_process'
 import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+
+import { stripIndent } from 'proper-tags'
 import { defineConfig } from 'tsdown'
 
 const ROOT_DIR = path.dirname(fileURLToPath(import.meta.url))
@@ -15,7 +17,7 @@ const STYLESHEET_OUTPUT_PATH = path.join(DIST_DIR, STYLESHEET_OUTPUT_BASENAME)
 const REPO_RAW_BASE_URL = 'https://raw.githubusercontent.com/elstgav/workflowy/main'
 const USERSCRIPT_HEADER_PATTERN = /^\/\/ ==UserScript==[\s\S]*?^\/\/ ==\/UserScript==\s*/m
 const VERSION_LINE_PATTERN = /^(\s*(?:(?:\/\/)|(?:\/\*))?\s*@version\s+)(\S+)(.*)$/m
-const SUPPORT_URL_PATTERN = /^(\s*\/\/\s*@supportURL\s+.+)$/m
+const AUTHOR_PATTERN = /^(\s*\/\/\s*@author.*)$/m
 const VERSION_PLACEHOLDER = '{YYYY.MM.DD}'
 const VERSION_SENTINEL = '__VERSION__'
 const TODAY_VERSION = (() => {
@@ -75,22 +77,33 @@ const getReusableVersion = (text: string | undefined) => {
   return version == null || version === VERSION_PLACEHOLDER ? null : version
 }
 
-const injectDownloadUrls = (header: string, relativeScriptPath: string) => {
-  const downloadUrl = toDownloadUrl(relativeScriptPath)
-  return header.replace(
-    SUPPORT_URL_PATTERN,
-    `$1\n// @downloadURL  ${downloadUrl}\n// @updateURL    ${downloadUrl}`,
-  )
-}
-
 const createUserscriptHeader = (scriptPath: string, version: string) => {
-  const sourceText = readFileSync(scriptPath, 'utf8')
-  const headerMatch = sourceText.match(USERSCRIPT_HEADER_PATTERN)
-  if (!headerMatch) throw new Error(`Missing userscript metadata block in ${scriptPath}`)
-
   const relativeScriptPath = toRelativeScriptPath(scriptPath)
+
+  const sourceText = readFileSync(scriptPath, 'utf8')
+  const headerText = sourceText.match(USERSCRIPT_HEADER_PATTERN)?.[0].trimEnd()
+  if (headerText == null) throw new Error(`Missing userscript metadata block in ${scriptPath}`)
+
+  const downloadUrl = toDownloadUrl(relativeScriptPath)
+
   const header = replaceVersion(
-    injectDownloadUrls(headerMatch[0].trimEnd(), relativeScriptPath),
+    headerText.replace(
+      AUTHOR_PATTERN,
+      stripIndent`
+      $1
+      // @version      ${version}
+      // @license      MIT
+      //
+      // @namespace    https://github.com/elstgav
+      // @homepageURL  https://github.com/elstgav/workflowy
+      // @supportURL   https://github.com/elstgav/workflowy/issues
+      //
+      // @downloadURL  ${downloadUrl}
+      // @updateURL    ${downloadUrl}
+      //
+      // @match        https://workflowy.com/*
+    `.trim(),
+    ),
     version,
   )
 

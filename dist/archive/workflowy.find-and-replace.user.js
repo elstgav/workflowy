@@ -1,18 +1,19 @@
 // ==UserScript==
 // @name         WorkFlowy Find & Replace
-// @version      2026.4.11
-// @description  Find & Replace
+// @description  Adds a Find & Replace button to the search input.
 // @author       rawbytz and Gavin Elster
+// @version      2026.4.11
 // @license      MIT
 //
-// @homepageURL  https://github.com/elstgav/workflowy
 // @namespace    https://github.com/elstgav
+// @homepageURL  https://github.com/elstgav/workflowy
 // @supportURL   https://github.com/elstgav/workflowy/issues
+//
 // @downloadURL  https://raw.githubusercontent.com/elstgav/workflowy/main/dist/archive/workflowy.find-and-replace.user.js
 // @updateURL    https://raw.githubusercontent.com/elstgav/workflowy/main/dist/archive/workflowy.find-and-replace.user.js
 //
 // @match        https://workflowy.com/*
-// @match        https://*.workflowy.com/*
+//
 // @grant        none
 // @run-at       document-end
 
