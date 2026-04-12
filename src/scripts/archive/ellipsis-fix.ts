@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         WorkFlowy Ellipsis Fix
-// @version      {YYYY.MM.DD}
+// @version      2025.3.7
 // @description  Fix the ability to type an ellipsis character (…) in WorkFlowy
 // @author       Gavin Elster
 // @license      MIT

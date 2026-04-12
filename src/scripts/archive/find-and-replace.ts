@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         WorkFlowy Find & Replace
-// @version      {YYYY.MM.DD}
+// @version      2025.3.8
 // @description  Find & Replace
 // @author       rawbytz and Gavin Elster
 // @license      MIT

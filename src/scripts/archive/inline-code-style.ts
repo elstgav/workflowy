@@ -10,7 +10,7 @@
 
 // ==UserScript==
 // @name         WorkFlowy Inline Code Formatting
-// @version      {YYYY.MM.DD}
+// @version      2023.4.24
 // @author       Gavin Elster
 // @license      MIT
 //
