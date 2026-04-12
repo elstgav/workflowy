@@ -6,7 +6,6 @@
 //
 // @grant        none
 // @run-at       document-end
-
 // ==/UserScript==
 
 const externalLink = document.createElement('a')

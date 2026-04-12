@@ -5,7 +5,6 @@
 //
 // @grant        none
 // @run-at       document-end
-
 // ==/UserScript==
 
 const fixFocus = () => {

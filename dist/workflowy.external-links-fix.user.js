@@ -17,7 +17,6 @@
 //
 // @grant        none
 // @run-at       document-end
-
 // ==/UserScript==
 
 //#region src/scripts/external-links-fix.ts

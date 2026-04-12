@@ -16,7 +16,6 @@
 //
 // @grant        none
 // @run-at       document-end
-
 // ==/UserScript==
 
 //#region src/scripts/focus-fix.ts

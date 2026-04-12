@@ -5,10 +5,7 @@
 //
 // @grant        none
 // @run-at       document-end
-
 // ==/UserScript==
-
-'use strict'
 
 const handleKeyDown = (event: KeyboardEvent) => {
   if (event.key !== '…') return
