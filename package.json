@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "tsdown",
-    "build:watch": "tsdown --watch",
+    "build": "tsdown --config-loader unrun",
+    "build:watch": "pnpm build --watch",
     "check": "oxlint . && oxfmt --check .",
     "fix": "oxfmt . && oxlint --fix .",
     "fmt": "oxfmt",
