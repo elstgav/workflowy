@@ -3,7 +3,7 @@
 // @description  Ensure external links open with default native behavior. (e.g.
 //               open in the default browser when running as a web app).
 // @author       Gavin Elster
-// @version      2026.4.11
+// @version      2026.04.12
 // @license      MIT
 //
 // @namespace    https://github.com/elstgav

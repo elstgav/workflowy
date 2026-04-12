@@ -2,7 +2,7 @@
 // @name         WorkFlowy - Focus Fix
 // @description  Fix WorkFlowy lost focus
 // @author       rawbytz and Gavin Elster
-// @version      2026.4.11
+// @version      2026.04.12
 // @license      MIT
 //
 // @namespace    https://github.com/elstgav

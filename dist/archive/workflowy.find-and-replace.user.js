@@ -2,7 +2,7 @@
 // @name         WorkFlowy Find & Replace
 // @description  Adds a Find & Replace button to the search input.
 // @author       rawbytz and Gavin Elster
-// @version      2026.4.11
+// @version      2025.03.08
 // @license      MIT
 //
 // @namespace    https://github.com/elstgav

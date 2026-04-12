@@ -2,7 +2,7 @@
 // @name         WorkFlowy Ellipsis Fix
 // @description  Fix the ability to type an ellipsis character (…) in WorkFlowy
 // @author       Gavin Elster
-// @version      2026.4.11
+// @version      2025.03.07
 // @license      MIT
 //
 // @namespace    https://github.com/elstgav

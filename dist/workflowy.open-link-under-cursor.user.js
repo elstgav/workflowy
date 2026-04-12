@@ -2,7 +2,7 @@
 // @name         WorkFlowy - Open Link under cursor
 // @description  Open links with a key command in WorkFlowy
 // @author       Gavin Elster
-// @version      2026.4.11
+// @version      2026.04.12
 // @license      MIT
 //
 // @namespace    https://github.com/elstgav

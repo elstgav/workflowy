@@ -2,7 +2,7 @@
 // @name         WorkFlowy Inline Code Formatting
 // @description  Adds inline code formatting to WorkFlowy (e.g. `code`).
 // @author       Gavin Elster
-// @version      2026.4.11
+// @version      2023.04.24
 // @license      MIT
 //
 // @namespace    https://github.com/elstgav

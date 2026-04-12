@@ -1,6 +1,5 @@
 // ==UserScript==
 // @name         WorkFlowy Template Button Cursor Fix
-// @version      2026.3.17
 // @description  Fix cursor navigation when focused on a template button
 // @author       Gavin Elster
 //
