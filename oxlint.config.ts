@@ -19,5 +19,5 @@ export default defineConfig({
     'sort-keys': 'off',
     'unicorn/prefer-global-this': 'off',
   },
-  ignorePatterns: ['archive/**', 'node_modules/**'],
+  ignorePatterns: ['dist/**', 'node_modules/**'],
 } as const satisfies OmitIndexSignature<OxlintConfig>)

@@ -1,8 +1,14 @@
 // ==UserScript==
 // @name         WorkFlowy Template Button Cursor Fix
-// @version      1.0
+// @version      {YYYY.MM.DD}
 // @description  Fix cursor navigation when focused on a template button
 // @author       Gavin Elster
+// @license      MIT
+//
+// @homepageURL  https://github.com/elstgav/workflowy
+// @namespace    https://github.com/elstgav/workflowy
+// @supportURL   https://github.com/elstgav/workflowy/issues
+//
 // @match        https://workflowy.com/*
 // @match        https://*.workflowy.com/*
 // @grant        none
@@ -10,142 +16,134 @@
 
 // ==/UserScript==
 
-/** @import { ExtensionsAPI, Item } from '../workflowy.types' */
+import type { Item } from '@/workflowy.types'
 
-;(() => {
-  'use strict'
+let prevFocusItem: Item | null = null
+let nextFocusItem: Item | null = null
 
-  let WF = window.WF
-  let prevFocusItem = /** @type {Item | null} */ (null)
-  let nextFocusItem = /** @type {Item | null} */ (null)
+const TEMPLATE_NAME_REGEX = /(?<=^|\s+)#(?:template|use-template:\w+)(?=\b|$)/i
 
-  const TEMPLATE_NAME_REGEX = /(?<=^|\s+)#(?:template|use-template:\w+)(?=\b|$)/i
+const isTemplateItem = (item: Item) => item.getNameInPlainText().match(TEMPLATE_NAME_REGEX)
 
-  const isTemplateItem = (/** @type {Item} */ item) =>
-    item.getNameInPlainText().match(TEMPLATE_NAME_REGEX)
+const handleFocusOut = () => {
+  prevFocusItem = nextFocusItem
+  nextFocusItem = null
+}
 
-  const handleFocusOut = () => {
-    prevFocusItem = nextFocusItem
-    nextFocusItem = null
-  }
+const handleFocusIn = () => {
+  nextFocusItem = WF.focusedItem()
 
-  const handleFocusIn = () => {
-    if (!WF) return
+  // console.log(
+  //   `Switched focus: ${prevFocusItem?.getNameInPlainText() ?? '[not an item]'} → ${
+  //     nextFocusItem?.getNameInPlainText() ?? '[not an item]'
+  //   }`,
+  // )
+}
 
-    nextFocusItem = WF.focusedItem()
+const handleKeyDown = (event: KeyboardEvent) => {
+  if (!event.key.startsWith('Arrow')) return
 
-    // console.log(
-    //   `Switched focus: ${prevFocusItem?.getNameInPlainText() ?? '[not an item]'} → ${
-    //     nextFocusItem?.getNameInPlainText() ?? '[not an item]'
-    //   }`,
-    // )
-  }
+  const selection = window.getSelection()
 
-  const handleKeyDown = (/** @type {KeyboardEvent} */ event) => {
-    if (!event.key.startsWith('Arrow')) return
+  // console.log(
+  //   `${event.key} pressed: ${prevFocusItem?.getNameInPlainText() ?? '[not an item]'} → ${
+  //     nextFocusItem?.getNameInPlainText() ?? '[not an item]'
+  //   }`,
+  // )
 
-    const selection = window.getSelection()
-
-    // console.log(
-    //   `${event.key} pressed: ${prevFocusItem?.getNameInPlainText() ?? '[not an item]'} → ${
-    //     nextFocusItem?.getNameInPlainText() ?? '[not an item]'
-    //   }`,
-    // )
-
-    if (!prevFocusItem) return
-    if (selection?.type !== 'Caret') return // Only interested in cursor movement
-    if (nextFocusItem) {
-      if (prevFocusItem.equals(nextFocusItem)) return // No change in items
-      if (isTemplateItem(nextFocusItem)) {
-        nextFocusItem.getElement()?.querySelector('button')?.focus()
-        return
-      }
-    }
-    if (!isTemplateItem(prevFocusItem)) return
-
-    prevFocusItem.getElement()?.blur()
-
-    switch (event.key) {
-      case 'ArrowUp':
-      case 'ArrowLeft':
-        return moveFocusToItemAbove()
-      case 'ArrowDown':
-      case 'ArrowRight':
-        return moveFocusToItemBelow()
-      default:
-        return
+  if (!prevFocusItem) return
+  if (selection?.type !== 'Caret') return // Only interested in cursor movement
+  if (nextFocusItem) {
+    if (prevFocusItem.equals(nextFocusItem)) return // No change in items
+    if (isTemplateItem(nextFocusItem)) {
+      nextFocusItem.getElement()?.querySelector('button')?.focus()
+      return
     }
   }
+  if (!isTemplateItem(prevFocusItem)) return
 
-  const moveFocusToItemAbove = () => {
-    let itemAbove = /** @type {Item | null | undefined} */ (undefined)
+  prevFocusItem.getElement()?.blur()
 
-    if (!prevFocusItem || !WF) return
+  switch (event.key) {
+    case 'ArrowUp':
+    case 'ArrowLeft':
+      return moveFocusToItemAbove()
+    case 'ArrowDown':
+    case 'ArrowRight':
+      return moveFocusToItemBelow()
+    default:
+      return
+  }
+}
 
-    const prevSibling = prevFocusItem.getPreviousVisibleSibling()
-    const parent = prevFocusItem.getParent()
+const moveFocusToItemAbove = () => {
+  let itemAbove: Item | null
+  if (!prevFocusItem || !WF) return
 
-    if (prevSibling) {
-      itemAbove = prevSibling
-      let children = itemAbove.getVisibleChildren()
+  const prevSibling = prevFocusItem.getPreviousVisibleSibling()
+  const parent = prevFocusItem.getParent()
 
-      while (children.length >= 0) {
-        const lastChild = children.at(-1)
+  if (prevSibling) {
+    itemAbove = prevSibling
+    let children = itemAbove.getVisibleChildren()
 
-        if (!lastChild?.getElement()) break
+    while (children.length >= 0) {
+      const lastChild = children.at(-1)
 
-        itemAbove = lastChild
-        children = itemAbove.getVisibleChildren()
-      }
-    } else {
-      itemAbove = parent
+      if (!lastChild?.getElement()) break
+
+      itemAbove = lastChild
+      children = itemAbove.getVisibleChildren()
     }
-
-    if (!itemAbove) return
-
-    WF.editItemName(itemAbove)
+  } else {
+    itemAbove = parent
   }
 
-  const moveFocusToItemBelow = () => {
-    let itemBelow = /** @type {Item | null | undefined} */ (undefined)
+  if (!itemAbove) return
 
-    if (!prevFocusItem || !WF) return
+  WF.editItemName(itemAbove)
+}
 
-    // “visible” means “not completed”, not “visible in the DOM”
-    const firstChild = prevFocusItem.getVisibleChildren()[0]
-    if (firstChild?.getElement()) {
-      // Ensure the child is rendered
-      itemBelow = firstChild
-    }
+const moveFocusToItemBelow = () => {
+  let itemBelow: Item | null
 
-    itemBelow ??= prevFocusItem.getNextVisibleSibling()
-    itemBelow ??= prevFocusItem.getParent()?.getNextVisibleSibling()
+  if (!prevFocusItem || !WF) return
 
-    if (!itemBelow) return
-
-    WF.editItemName(itemBelow)
-    const anchor = document.getSelection()?.anchorNode ?? null
-    document.getSelection()?.setPosition(anchor, 0)
+  // “visible” means “not completed”, not “visible in the DOM”
+  const firstChild = prevFocusItem.getVisibleChildren()[0]
+  if (firstChild?.getElement()) {
+    // Ensure the child is rendered
+    itemBelow = firstChild
   }
 
-  const initializer = new MutationObserver(() => {
-    const page = /** @type {HTMLDivElement} */ (document.querySelector('.page.active'))
+  itemBelow ??= prevFocusItem.getNextVisibleSibling()
+  itemBelow ??= prevFocusItem.getParent()?.getNextVisibleSibling() ?? null
 
-    if (!page || !window.WF) return
+  if (!itemBelow) return
 
-    initializer.disconnect()
+  WF.editItemName(itemBelow)
+  const anchor = document.getSelection()?.anchorNode ?? null
+  document.getSelection()?.setPosition(anchor, 0)
+}
 
-    WF = window.WF
+const initializer = new MutationObserver(() => {
+  const page = document.querySelector('.page.active')
 
-    prevFocusItem = WF.focusedItem()
-    nextFocusItem = WF.focusedItem()
+  if (!page || !window.WF) return
 
-    // HACK: Using timeouts to make sure events fire in correct order across
-    // browsers, and after WF has a chance to update .selectedItem().
-    page.addEventListener('focusout', () => setTimeout(handleFocusOut, 0))
-    page.addEventListener('focusin', () => setTimeout(handleFocusIn, 0))
-    page.addEventListener('keydown', (event) => setTimeout(() => handleKeyDown(event), 20))
+  initializer.disconnect()
+
+  prevFocusItem = WF.focusedItem()
+  nextFocusItem = WF.focusedItem()
+
+  // HACK: Using timeouts to make sure events fire in correct order across
+  // browsers, and after WF has a chance to update .selectedItem().
+  page.addEventListener('focusout', () => setTimeout(handleFocusOut, 0))
+  page.addEventListener('focusin', () => setTimeout(handleFocusIn, 0))
+  page.addEventListener('keydown', (event) => {
+    if (!(event instanceof KeyboardEvent)) return
+    setTimeout(() => handleKeyDown(event), 20)
   })
+})
 
-  initializer.observe(document.body, { subtree: true, childList: true })
-})()
+initializer.observe(document.body, { subtree: true, childList: true })

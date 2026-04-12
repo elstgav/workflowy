@@ -2,10 +2,10 @@
 @name         WorkFlowy - Style Tweaks
 @description  Minimal style adjustments for WorkFlowy
 @author       Gavin Elster <gavin.elster@me> (https://github.com/elstgav)
-@namespace    github.com/elstgav/workflowy
 @homepageURL  https://github.com/elstgav/workflowy
+@namespace    https://github.com/elstgav/workflowy
 @match        https://workflowy.com/*
-@version      1.0
+@version      {YYYY.MM.DD}
 @license      MIT
 ==/UserStyle== */
 

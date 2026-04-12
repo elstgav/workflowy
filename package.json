@@ -3,6 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "build": "tsdown --config tsdown.config.ts --clean",
+    "build:watch": "tsdown --config tsdown.config.ts --watch",
     "check": "oxlint . && oxfmt --check .",
     "fix": "oxfmt . && oxlint --fix .",
     "fmt": "oxfmt",
@@ -13,11 +15,12 @@
   "devDependencies": {
     "@oxlint/binding-darwin-arm64": "^1.59.0",
     "@types/greasemonkey": "^4.0.7",
+    "@types/node": "^25.6.0",
     "@typescript/native-preview": "7.0.0-dev.20260406.1",
     "oxfmt": "^0.44.0",
     "oxlint": "^1.59.0",
     "oxlint-tsgolint": "^0.20.0",
-    "ts-node": "^10.9.2",
+    "tsdown": "^0.21.7",
     "type-fest": "^5.5.0",
     "typescript": "^6.0.2"
   }

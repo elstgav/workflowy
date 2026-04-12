@@ -1,0 +1,54 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "build:watch",
+      "label": "Build on Save",
+      "detail": "pnpm build:watch",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "isBackground": true,
+      "runOptions": {
+        "instanceLimit": 1,
+        "runOn": "folderOpen",
+        "reevaluateOnRerun": true
+      },
+      "presentation": {
+        "reveal": "silent",
+        "panel": "dedicated",
+        "group": "build",
+        "clear": true,
+        "showReuseMessage": false
+      },
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "FORCE_COLOR": "0"
+        }
+      },
+      "problemMatcher": {
+        "owner": "tsdown",
+        "source": "tsdown",
+        "fileLocation": ["relative", "${workspaceFolder}"],
+        "pattern": [
+          {
+            "regexp": "^(.+):(\\d+):(\\d+):\\s+(.*)$",
+            "file": 1,
+            "line": 2,
+            "column": 3,
+            "severity": 1,
+            "message": 4
+          }
+        ],
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^ℹ Build start$",
+          "endsPattern": "^(?:✔ Build complete.*|✖ Build failed.*)$"
+        }
+      }
+    }
+  ]
+}

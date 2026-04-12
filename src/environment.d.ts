@@ -1,18 +1,18 @@
+/// <reference types="greasemonkey" />
+
 // Workflowy Extensions API
 // https://workflowy.com/#/8c9cb227d2d5
 
 import { ExtensionsAPI, WFEventListener } from './workflowy.types'
 
 declare global {
-  interface Window {
-    WF?: ExtensionsAPI
+  var WF: ExtensionsAPI
 
-    /**
-     * If a global WFEventListener is defined, it will be called with every
-     * event that occurs in Workflowy.
-     *
-     * @alpha very experimental and likely to change!
-     */
-    WFEventListener?: WFEventListener
-  }
+  /**
+   * If a global WFEventListener is defined, it will be called with every
+   * event that occurs in Workflowy.
+   *
+   * @alpha very experimental and likely to change!
+   */
+  var WFEventListener: WFEventListener | undefined
 }
