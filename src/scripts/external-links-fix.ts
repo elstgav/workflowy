@@ -1,7 +1,6 @@
 // ==UserScript==
 // @name         WorkFlowy - External Links Fix
-// @description  Ensure external links open with default native behavior. (e.g.
-//               open in the default browser when running as a web app).
+// @description  When running WorkFlowy as a web app, ensures external links open in your default browser (vs. staying in the web app).
 // @author       Gavin Elster
 //
 // @grant        none
