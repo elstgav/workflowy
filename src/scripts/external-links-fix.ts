@@ -7,7 +7,7 @@
 // @license      MIT
 //
 // @homepageURL  https://github.com/elstgav/workflowy
-// @namespace    https://github.com/elstgav/workflowy
+// @namespace    https://github.com/elstgav
 // @supportURL   https://github.com/elstgav/workflowy/issues
 //
 // @match        https://workflowy.com/*

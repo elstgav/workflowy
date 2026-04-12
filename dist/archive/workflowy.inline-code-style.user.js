@@ -5,7 +5,7 @@
 // @license      MIT
 //
 // @homepageURL  https://github.com/elstgav/workflowy
-// @namespace    https://github.com/elstgav/workflowy
+// @namespace    https://github.com/elstgav
 // @supportURL   https://github.com/elstgav/workflowy/issues
 // @downloadURL  https://raw.githubusercontent.com/elstgav/workflowy/main/dist/archive/workflowy.inline-code-style.user.js
 // @updateURL    https://raw.githubusercontent.com/elstgav/workflowy/main/dist/archive/workflowy.inline-code-style.user.js
