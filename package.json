@@ -17,6 +17,7 @@
     "@types/greasemonkey": "^4.0.7",
     "@types/node": "^25.6.0",
     "@typescript/native-preview": "7.0.0-dev.20260406.1",
+    "date-fns": "^4.1.0",
     "oxfmt": "^0.44.0",
     "oxlint": "^1.59.0",
     "oxlint-tsgolint": "^0.20.0",
