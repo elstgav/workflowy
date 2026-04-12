@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "tsdown --config tsdown.config.ts --clean",
-    "build:watch": "tsdown --config tsdown.config.ts --watch",
+    "build": "tsdown",
+    "build:watch": "tsdown --watch",
     "check": "oxlint . && oxfmt --check .",
     "fix": "oxfmt . && oxlint --fix .",
     "fmt": "oxfmt",

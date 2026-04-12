@@ -13,23 +13,21 @@ const ROOT_DIR = path.dirname(fileURLToPath(import.meta.url))
 
 const REPO_RAW_BASE_URL = 'https://raw.githubusercontent.com/elstgav/workflowy/main'
 
-const USERSCRIPT_HEADER_PATTERN = /^\/\/ ==UserScript==[\s\S]*?^\/\/ ==\/UserScript==\s*/m
-const VERSION_LINE_PATTERN = /^(?<tag>[\s/]*@version\s+)(?<version>\S+.*)$/m
-const AUTHOR_PATTERN = /^[\s/]*@author.*$/m
+const USERSCRIPT_BLOCK = /^\/\/ ==UserScript==[\s\S]*?^\/\/ ==\/UserScript==\s*/m
+const VERSION = /^(?<tag>[\s/]*@version\s+)(?<version>\S+.*)$\n/m
+const AUTHOR = /^[\s/]*@author.*$/m
 
 const TODAY_VERSION = format(new Date(), 'yyyy.MM.dd')
 
 const previousOutputs = new Map<string, string>()
 
-const outputPaths = () =>
-  globSync('dist/**/*', { cwd: ROOT_DIR })
-    .map((file) => path.join(ROOT_DIR, file))
-    .filter((file) => statSync(file).isFile())
+const distFilePaths = () =>
+  globSync('dist/**/*', { cwd: ROOT_DIR }).filter((file) => statSync(file).isFile())
 
 const preBuild: TsdownHooks['build:prepare'] = () => {
   previousOutputs.clear()
 
-  for (const outputPath of outputPaths()) {
+  for (const outputPath of distFilePaths()) {
     previousOutputs.set(outputPath, readFileSync(outputPath, 'utf8'))
   }
 }
@@ -37,24 +35,22 @@ const preBuild: TsdownHooks['build:prepare'] = () => {
 const postBuild: TsdownHooks['build:done'] = () => {
   execSync('pnpm fmt dist', { cwd: ROOT_DIR })
 
-  const withoutVersion = (text: string) => text.replace(VERSION_LINE_PATTERN, '')
+  const withoutVersion = (text: string) => text.replace(VERSION, '')
 
-  for (const outputPath of outputPaths()) {
-    const before = previousOutputs.get(outputPath)
+  for (const [outputPath, before] of previousOutputs) {
     const after = (() => {
       const contents = readFileSync(outputPath, 'utf8')
 
       if (outputPath.endsWith('.css')) {
-        return contents.replace(VERSION_LINE_PATTERN, `$<tag>${TODAY_VERSION}`)
+        return contents.replace(VERSION, `$<tag>${TODAY_VERSION}\n`)
       }
 
       return contents
     })()
 
-    writeFileSync(
-      outputPath,
-      before && withoutVersion(before) === withoutVersion(after) ? before : after,
-    )
+    const isSameAsBefore = before && withoutVersion(before) === withoutVersion(after)
+
+    writeFileSync(outputPath, isSameAsBefore ? before : after)
   }
 }
 
@@ -66,11 +62,11 @@ const userscriptHeaderPlugin: UserConfig['plugins'] = {
       if (!chunk.facadeModuleId) continue
 
       const sourceText = readFileSync(chunk.facadeModuleId, 'utf8')
-      const sourceHeader = sourceText.match(USERSCRIPT_HEADER_PATTERN)?.[0].trimEnd()
+      const sourceHeader = sourceText.match(USERSCRIPT_BLOCK)?.[0].trimEnd()
 
       if (!sourceHeader) return
 
-      const header = sourceHeader.replace(AUTHOR_PATTERN, (authorLine) =>
+      const header = sourceHeader.replace(AUTHOR, (authorLine) =>
         stripIndent`${authorLine}
           // @version      ${TODAY_VERSION}
           // @license      MIT
