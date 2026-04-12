@@ -1,0 +1,70 @@
+/* ==UserStyle==
+
+@name         WorkFlowy - Style Tweaks
+@description  Minimal style adjustments for WorkFlowy
+@author       Gavin Elster
+@version      2026.4.11
+@license      MIT
+
+@namespace    https://github.com/elstgav
+@homepageURL  https://github.com/elstgav/workflowy
+@supportURL   https://github.com/elstgav/workflowy/issues
+@updateURL    https://raw.githubusercontent.com/elstgav/workflowy/main/dist/workflowy.user.css
+
+==/UserStyle== */
+
+@-moz-document domain("workflowy.com") {
+  /* Change font */
+  #app {
+    font-family: 'Avenir Next' !important;
+  }
+
+  /* Set to dark background (mainly for startup screen) */
+  body {
+    background-color: rgb(42, 49, 53);
+  }
+
+  /*
+  * Disable custom scrollbar
+  * - Prevents layout shift when scrollbar appears
+  * - Stops overriding system preference for auto-hide scrollbar
+  * - Unfortunately, once it’s been customized, I don’t see a way to revert to
+  *   the native scrollbar
+  */
+  ::-webkit-scrollbar,
+  ::-webkit-scrollbar-track,
+  ::-webkit-scrollbar-thumb,
+  ::-webkit-scrollbar-thumb:hover {
+    width: 0 !important;
+    height: 0 !important;
+    background-color: initial !important;
+    border-radius: initial !important;
+  }
+
+  /* Hide star menu from header */
+  .header > div:has(svg[data-icon='star']) {
+    display: none;
+  }
+
+  /* Show full, multi-line notes */
+  .noted > .notes > .content:not(:empty) {
+    height: auto !important;
+    max-height: inherit !important;
+
+    overflow: visible !important;
+    line-clamp: inherit !important;
+    -webkit-line-clamp: inherit !important;
+    white-space: inherit !important;
+  }
+
+  /* Fix flex wrapping of bullet content (wraps too early)
+  .content .innerContentContainer {
+    width: 100%;
+  }
+  */
+
+  /* Indent checkbox notes */
+  .checkmark.noted > .notes > .content {
+    padding-left: 1.5rem;
+  }
+}

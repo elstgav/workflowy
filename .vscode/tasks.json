@@ -1,0 +1,64 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build on Save",
+      "detail": "pnpm build:watch",
+
+      "icon": {
+        "id": "repo-sync",
+        "color": "terminal.ansiCyan"
+      },
+
+      "command": "pnpm",
+      "args": ["build:watch"],
+
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+
+      "isBackground": true,
+
+      "runOptions": {
+        "instanceLimit": 1,
+        "runOn": "folderOpen",
+        "reevaluateOnRerun": true
+      },
+
+      "presentation": {
+        "reveal": "silent",
+        "panel": "dedicated",
+        "group": "build",
+        "clear": true,
+        "showReuseMessage": false
+      },
+
+      "problemMatcher": {
+        "owner": "typescript",
+        "source": "tsdown",
+        "fileLocation": "autoDetect",
+
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "rebuilding\\.\\.\\.",
+          "endsPattern": "(^.{1,4}Rebuilt|^─+╯)"
+        },
+
+        "pattern": [
+          {
+            "regexp": "^\\[([^\\]]+)\\]\\s+Error:\\s+(.*)$",
+            "code": 1,
+            "message": 2
+          },
+          {
+            "regexp": "^\\s*╭─\\[\\s+(.+):(\\d+):(\\d+)\\s+\\]$",
+            "file": 1,
+            "line": 2,
+            "column": 3
+          }
+        ]
+      }
+    }
+  ]
+}

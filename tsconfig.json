@@ -14,13 +14,8 @@
     /* Language and Environment
      * ------------------------------------------ */
 
-    "target": "ESNext", // Set the JavaScript language version for emitted JavaScript and include compatible library declarations.
-
-    /* JavaScript Support
-     * ------------------------------------------ */
-
-    "allowJs": true,
-    "checkJs": true,
+    "target": "ESNext",
+    "module": "ESNext",
 
     /* Emit Output
      * ------------------------------------------ */
@@ -32,7 +27,6 @@
     /* Interop Constraints
      * ------------------------------------------ */
 
-    "esModuleInterop": true, // Emit additional JavaScript to ease support for importing CommonJS modules
     "forceConsistentCasingInFileNames": true, // Ensure that casing is correct in imports
     "isolatedModules": true, // Ensure each file can be safely transpiled without relying on other imports
 
@@ -46,12 +40,17 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
 
-    /* Completeness
+    /* Module Resolution
      * ------------------------------------------ */
 
-    "skipLibCheck": true // Save compilation time by skipping type checks of all .d.ts files
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+
+    "allowSyntheticDefaultImports": true,
+    "moduleDetection": "force",
+    "moduleResolution": "Bundler"
   },
 
-  "include": ["environment.d.ts", "workflowy.types.ts", "workflowy.*.user.js"],
-  "exclude": ["archive", "node_modules"]
+  "include": ["*.ts", "src/**/*.ts"]
 }
