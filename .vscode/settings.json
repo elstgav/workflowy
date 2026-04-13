@@ -1,8 +1,0 @@
-{
-  "editor.defaultFormatter": "oxc.oxc-vscode",
-  "editor.formatOnSave": false, // disable default behavior
-  "editor.codeActionsOnSave": {
-    "source.format.oxc": "always", // run formatter first
-    "source.fixAll.oxc": "always" // run lint fixes after
-  }
-}
