@@ -19,6 +19,7 @@
     "@typescript/native-preview": "7.0.0-dev.20260406.1",
     "date-fns": "^4.1.0",
     "es-toolkit": "^1.45.1",
+    "eta": "^4.5.1",
     "oxfmt": "^0.44.0",
     "oxlint": "^1.59.0",
     "oxlint-tsgolint": "^0.20.0",
