@@ -9,8 +9,8 @@
 // @homepageURL  https://github.com/elstgav/workflowy
 // @supportURL   https://github.com/elstgav/workflowy/issues
 //
-// @downloadURL  https://raw.githubusercontent.com/elstgav/workflowy/main/dist/archive/workflowy.template-focus-navigation.user.js
-// @updateURL    https://raw.githubusercontent.com/elstgav/workflowy/main/dist/archive/workflowy.template-focus-navigation.user.js
+// @downloadURL  https://raw.githubusercontent.com/elstgav/workflowy/main/dist/scripts/archive/template-focus-navigation/workflowy.template-focus-navigation.user.js
+// @updateURL    https://raw.githubusercontent.com/elstgav/workflowy/main/dist/scripts/archive/template-focus-navigation/workflowy.template-focus-navigation.user.js
 //
 // @match        https://workflowy.com/*
 //
@@ -18,7 +18,7 @@
 // @run-at       document-end
 // ==/UserScript==
 
-//#region src/scripts/archive/template-focus-navigation.ts
+//#region src/scripts/archive/template-focus-navigation/template-focus-navigation.ts
 let prevFocusItem = null
 let nextFocusItem = null
 const TEMPLATE_NAME_REGEX = /(?<=^|\s+)#(?:template|use-template:\w+)(?=\b|$)/i

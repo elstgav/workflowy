@@ -9,8 +9,8 @@
 // @homepageURL  https://github.com/elstgav/workflowy
 // @supportURL   https://github.com/elstgav/workflowy/issues
 //
-// @downloadURL  https://raw.githubusercontent.com/elstgav/workflowy/main/dist/workflowy.open-link-under-cursor.user.js
-// @updateURL    https://raw.githubusercontent.com/elstgav/workflowy/main/dist/workflowy.open-link-under-cursor.user.js
+// @downloadURL  https://raw.githubusercontent.com/elstgav/workflowy/main/dist/scripts/open-link-under-cursor/workflowy.open-link-under-cursor.user.js
+// @updateURL    https://raw.githubusercontent.com/elstgav/workflowy/main/dist/scripts/open-link-under-cursor/workflowy.open-link-under-cursor.user.js
 //
 // @match        https://workflowy.com/*
 //
@@ -18,7 +18,7 @@
 // @run-at       document-end
 // ==/UserScript==
 
-//#region src/scripts/open-link-under-cursor.ts
+//#region src/scripts/open-link-under-cursor/open-link-under-cursor.ts
 document.addEventListener('keydown', (event) => {
   if (!(event.ctrlKey && event.key === '.')) return
   const selection = window.getSelection()

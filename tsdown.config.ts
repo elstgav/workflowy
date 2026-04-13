@@ -6,11 +6,18 @@ import { plugins, postBuild, preBuild } from '@/build/build-processing'
 
 export default defineConfig({
   entry: ['src/scripts/**/*.ts'],
+  root: 'src',
 
   platform: 'browser',
   target: 'esnext',
 
-  copy: [{ from: 'src/workflowy.css', rename: 'workflowy.user.css' }],
+  copy: [
+    {
+      from: 'src/styles/workflowy/workflowy.css',
+      to: 'dist/styles/workflowy',
+      rename: 'workflowy.user.css',
+    },
+  ],
   hooks: {
     'build:prepare': preBuild,
     'build:done': postBuild,

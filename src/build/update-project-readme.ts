@@ -2,7 +2,7 @@ import { readFileSync, writeFileSync } from 'node:fs'
 
 import { orderBy, partition } from 'es-toolkit'
 
-import { OutputFile, OutputFiles } from '@/build/file-classes'
+import { OutputFiles, OutputScript } from '@/build/file-classes'
 import { PROJECT_README_PATH } from '@/build/helpers'
 
 const ACTIVE_LIST_REGEX =
@@ -16,7 +16,7 @@ export const updateProjectREADME = () => {
   let READMEcontent = readFileSync(PROJECT_README_PATH, 'utf8')
 
   const [activeFiles, archivedFiles] = partition(OutputFiles.files, (file) => !file.isArchived)
-  const matchers: [RegExp, OutputFile[]][] = [
+  const matchers: [RegExp, OutputScript[]][] = [
     [ACTIVE_LIST_REGEX, activeFiles],
     [ARCHIVED_LIST_REGEX, archivedFiles],
   ]

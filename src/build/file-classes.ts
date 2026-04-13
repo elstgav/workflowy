@@ -1,11 +1,12 @@
 import { execSync } from 'node:child_process'
 import { globSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 
-import { type OutputChunk as RolldownOutputChunk } from 'rolldown'
+import { type OutputChunk } from 'rolldown'
 
 import {
   AUTHOR_TAG_REGEX,
   DESCRIPTION_TAG_REGEX,
+  LICENSE_TAG_REGEX,
   METADATA_REGEX,
   NAME_TAG_REGEX,
   REPO_RAW_BASE_URL,
@@ -14,7 +15,7 @@ import {
   versionForToday,
 } from '@/build/helpers'
 
-class ScriptFile {
+class BaseScriptFile {
   protected _contents: string
 
   constructor(
@@ -40,10 +41,6 @@ class ScriptFile {
     return this.path.endsWith('.js')
   }
 
-  get isREADME() {
-    return this.path.endsWith('README.md')
-  }
-
   get metadata() {
     const metadata = this.contents.match(METADATA_REGEX)?.groups?.metadata
 
@@ -51,8 +48,15 @@ class ScriptFile {
       name: metadata?.match(NAME_TAG_REGEX)?.groups?.name,
       description: metadata?.match(DESCRIPTION_TAG_REGEX)?.groups?.description,
       author: metadata?.match(AUTHOR_TAG_REGEX)?.groups?.author,
+      license: metadata?.match(LICENSE_TAG_REGEX)?.groups?.license,
       version: metadata?.match(VERSION_TAG_REGEX)?.groups?.version,
     }
+  }
+
+  get displayName() {
+    if (!this.metadata.name) return undefined
+
+    return `WorkFlowy - ${this.metadata.name}${this.isArchived ? ' [ARCHIVED]' : ''}`
   }
 
   get permalink() {
@@ -68,11 +72,11 @@ export type OutputChunkReplacer = ({
   sourceContents: string
 }) => string
 
-export class OutputChunk extends ScriptFile {
-  readonly chunk: RolldownOutputChunk
+export class BuildChunk extends BaseScriptFile {
+  readonly chunk: OutputChunk
   readonly sourcePath: string
 
-  constructor(chunk: RolldownOutputChunk) {
+  constructor(chunk: OutputChunk) {
     const path = chunk.fileName
     const sourcePath = chunk.facadeModuleId ?? ''
     const sourceContents = readFileSync(sourcePath, 'utf8')
@@ -100,7 +104,7 @@ export class OutputChunk extends ScriptFile {
   }
 }
 
-export class OutputFile extends ScriptFile {
+export class OutputScript extends BaseScriptFile {
   readonly snapshot: string
 
   constructor(readonly path: string) {
@@ -129,15 +133,11 @@ export class OutputFile extends ScriptFile {
   }
 }
 
-class OutputFilesSingleton {
-  #files: OutputFile[] = []
+class OutputScriptsSingleton {
+  #files: OutputScript[] = []
 
   get files() {
     return this.#files
-  }
-
-  get cssFiles() {
-    return this.#files.filter((file) => file.isCSS)
   }
 
   formatFiles() {
@@ -145,14 +145,16 @@ class OutputFilesSingleton {
   }
 
   update() {
-    const latestDistFilePaths = globSync('dist/**/*', { cwd: ROOT_DIR }).filter((file) =>
+    const latestDistFilePaths = globSync('dist/**/*.{js,css}', { cwd: ROOT_DIR }).filter((file) =>
       statSync(file).isFile(),
     )
-    this.#files = latestDistFilePaths.map((path) => new OutputFile(path))
+    this.#files = latestDistFilePaths.map((path) => new OutputScript(path))
   }
 
   updateCSSVersions() {
-    this.cssFiles.forEach((cssFile) => {
+    const cssFiles = this.#files.filter((file) => file.isCSS)
+
+    cssFiles.forEach((cssFile) => {
       cssFile.contents = cssFile.contents.replace(VERSION_TAG_REGEX, `$<tag>${versionForToday()}\n`)
     })
   }
@@ -162,4 +164,4 @@ class OutputFilesSingleton {
   }
 }
 
-export const OutputFiles = new OutputFilesSingleton()
+export const OutputFiles = new OutputScriptsSingleton()

@@ -6,16 +6,16 @@ Styles and features for my personal WorkFlowy setup.
 
 <!-- ACTIVE_LIST -->
 
-- [External Links Fix](https://raw.githubusercontent.com/elstgav/workflowy/main/dist/workflowy.external-links-fix.user.js)  
+- [External Links Fix](https://raw.githubusercontent.com/elstgav/workflowy/main/dist/scripts/external-links-fix/workflowy.external-links-fix.user.js)  
   When running WorkFlowy as a web app, ensures external links open in your default browser (vs. staying in the web app).
 
-- [Focus Fix](https://raw.githubusercontent.com/elstgav/workflowy/main/dist/workflowy.focus-fix.user.js)  
+- [Focus Fix](https://raw.githubusercontent.com/elstgav/workflowy/main/dist/scripts/focus-fix/workflowy.focus-fix.user.js)  
   Fix WorkFlowy lost focus
 
-- [Open Link under cursor](https://raw.githubusercontent.com/elstgav/workflowy/main/dist/workflowy.open-link-under-cursor.user.js)  
+- [Open Link under cursor](https://raw.githubusercontent.com/elstgav/workflowy/main/dist/scripts/open-link-under-cursor/workflowy.open-link-under-cursor.user.js)  
   Open links with a key command in WorkFlowy
 
-- [Style Tweaks](https://raw.githubusercontent.com/elstgav/workflowy/main/dist/workflowy.user.css)  
+- [Style Tweaks](https://raw.githubusercontent.com/elstgav/workflowy/main/dist/styles/workflowy/workflowy.user.css)  
   Minimal style adjustments for WorkFlowy
 
 <!-- /ACTIVE_LIST -->
@@ -27,16 +27,16 @@ Styles and features for my personal WorkFlowy setup.
 
 <!-- ARCHIVED_LIST -->
 
-- [Ellipsis Fix](https://raw.githubusercontent.com/elstgav/workflowy/main/dist/archive/workflowy.ellipsis-fix.user.js)  
+- [Ellipsis Fix](https://raw.githubusercontent.com/elstgav/workflowy/main/dist/scripts/archive/ellipsis-fix/workflowy.ellipsis-fix.user.js)  
   Fix the ability to type an ellipsis character (`…`) in WorkFlowy
 
-- [Find & Replace](https://raw.githubusercontent.com/elstgav/workflowy/main/dist/archive/workflowy.find-and-replace.user.js)  
+- [Find & Replace](https://raw.githubusercontent.com/elstgav/workflowy/main/dist/scripts/archive/find-and-replace/workflowy.find-and-replace.user.js)  
   Adds a Find & Replace button to the search input.
 
-- [Fixed Keyboard Navigation for Template Buttons](https://raw.githubusercontent.com/elstgav/workflowy/main/dist/archive/workflowy.template-focus-navigation.user.js)  
+- [Fixed Keyboard Navigation for Template Buttons](https://raw.githubusercontent.com/elstgav/workflowy/main/dist/scripts/archive/template-focus-navigation/workflowy.template-focus-navigation.user.js)  
   Enables activating and navigating past template buttons via the keyboard.
 
-- [Inline Code Formatting](https://raw.githubusercontent.com/elstgav/workflowy/main/dist/archive/workflowy.inline-code-style.user.js)  
+- [Inline Code Formatting](https://raw.githubusercontent.com/elstgav/workflowy/main/dist/scripts/archive/inline-code-style/workflowy.inline-code-style.user.js)  
   Adds inline code formatting to WorkFlowy (e.g. `code`).
 
 <!-- /ARCHIVED_LIST -->

@@ -1,7 +1,7 @@
 import { stripIndent } from 'proper-tags'
 import { type UserConfig } from 'tsdown'
 
-import { OutputChunk } from '@/build/file-classes'
+import { BuildChunk } from '@/build/file-classes'
 import { AUTHOR_TAG_REGEX, METADATA_REGEX, NAME_TAG_REGEX, versionForToday } from '@/build/helpers'
 
 export const generateUserscriptHeader: UserConfig['plugins'] = {
@@ -11,7 +11,7 @@ export const generateUserscriptHeader: UserConfig['plugins'] = {
       if (chunk.type !== 'chunk') continue
       if (!chunk.facadeModuleId) continue
 
-      const outputChunk = new OutputChunk(chunk)
+      const outputChunk = new BuildChunk(chunk)
       const sourceMetadata = outputChunk.sourceContents.match(METADATA_REGEX)?.[0].trimEnd()
 
       if (!sourceMetadata) continue

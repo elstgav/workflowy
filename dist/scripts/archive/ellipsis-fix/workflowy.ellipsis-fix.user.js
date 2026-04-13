@@ -9,8 +9,8 @@
 // @homepageURL  https://github.com/elstgav/workflowy
 // @supportURL   https://github.com/elstgav/workflowy/issues
 //
-// @downloadURL  https://raw.githubusercontent.com/elstgav/workflowy/main/dist/archive/workflowy.ellipsis-fix.user.js
-// @updateURL    https://raw.githubusercontent.com/elstgav/workflowy/main/dist/archive/workflowy.ellipsis-fix.user.js
+// @downloadURL  https://raw.githubusercontent.com/elstgav/workflowy/main/dist/scripts/archive/ellipsis-fix/workflowy.ellipsis-fix.user.js
+// @updateURL    https://raw.githubusercontent.com/elstgav/workflowy/main/dist/scripts/archive/ellipsis-fix/workflowy.ellipsis-fix.user.js
 //
 // @match        https://workflowy.com/*
 //
@@ -18,7 +18,7 @@
 // @run-at       document-end
 // ==/UserScript==
 
-//#region src/scripts/archive/ellipsis-fix.ts
+//#region src/scripts/archive/ellipsis-fix/ellipsis-fix.ts
 const handleKeyDown = (event) => {
   if (event.key !== '…') return
   event.preventDefault()

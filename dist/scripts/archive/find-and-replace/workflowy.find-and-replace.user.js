@@ -9,8 +9,8 @@
 // @homepageURL  https://github.com/elstgav/workflowy
 // @supportURL   https://github.com/elstgav/workflowy/issues
 //
-// @downloadURL  https://raw.githubusercontent.com/elstgav/workflowy/main/dist/archive/workflowy.find-and-replace.user.js
-// @updateURL    https://raw.githubusercontent.com/elstgav/workflowy/main/dist/archive/workflowy.find-and-replace.user.js
+// @downloadURL  https://raw.githubusercontent.com/elstgav/workflowy/main/dist/scripts/archive/find-and-replace/workflowy.find-and-replace.user.js
+// @updateURL    https://raw.githubusercontent.com/elstgav/workflowy/main/dist/scripts/archive/find-and-replace/workflowy.find-and-replace.user.js
 //
 // @match        https://workflowy.com/*
 //
@@ -18,7 +18,7 @@
 // @run-at       document-end
 // ==/UserScript==
 
-//#region src/scripts/archive/find-and-replace.ts
+//#region src/scripts/archive/find-and-replace/find-and-replace.ts
 let searchInput
 const findAndReplace = () => {
   const toastMsg = (str, sec = 2, err = false) => {

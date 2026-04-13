@@ -9,8 +9,8 @@
 // @homepageURL  https://github.com/elstgav/workflowy
 // @supportURL   https://github.com/elstgav/workflowy/issues
 //
-// @downloadURL  https://raw.githubusercontent.com/elstgav/workflowy/main/dist/archive/workflowy.inline-code-style.user.js
-// @updateURL    https://raw.githubusercontent.com/elstgav/workflowy/main/dist/archive/workflowy.inline-code-style.user.js
+// @downloadURL  https://raw.githubusercontent.com/elstgav/workflowy/main/dist/scripts/archive/inline-code-style/workflowy.inline-code-style.user.js
+// @updateURL    https://raw.githubusercontent.com/elstgav/workflowy/main/dist/scripts/archive/inline-code-style/workflowy.inline-code-style.user.js
 //
 // @match        https://workflowy.com/*
 //
@@ -18,7 +18,7 @@
 // @run-at       document-end
 // ==/UserScript==
 
-//#region src/scripts/archive/inline-code-style.ts
+//#region src/scripts/archive/inline-code-style/inline-code-style.ts
 let currentBullet = null
 let page = null
 const INLINE_CODE = /`([^`]+)`/g

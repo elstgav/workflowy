@@ -9,8 +9,8 @@
 // @homepageURL  https://github.com/elstgav/workflowy
 // @supportURL   https://github.com/elstgav/workflowy/issues
 //
-// @downloadURL  https://raw.githubusercontent.com/elstgav/workflowy/main/dist/workflowy.focus-fix.user.js
-// @updateURL    https://raw.githubusercontent.com/elstgav/workflowy/main/dist/workflowy.focus-fix.user.js
+// @downloadURL  https://raw.githubusercontent.com/elstgav/workflowy/main/dist/scripts/focus-fix/workflowy.focus-fix.user.js
+// @updateURL    https://raw.githubusercontent.com/elstgav/workflowy/main/dist/scripts/focus-fix/workflowy.focus-fix.user.js
 //
 // @match        https://workflowy.com/*
 //
@@ -18,7 +18,7 @@
 // @run-at       document-end
 // ==/UserScript==
 
-//#region src/scripts/focus-fix.ts
+//#region src/scripts/focus-fix/focus-fix.ts
 const fixFocus = () => {
   const active = document.activeElement?.className
   if (!active || active.includes('searchBoxInput') || active.includes('content')) return

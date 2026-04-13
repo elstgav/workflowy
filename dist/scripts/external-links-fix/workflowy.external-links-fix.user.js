@@ -9,8 +9,8 @@
 // @homepageURL  https://github.com/elstgav/workflowy
 // @supportURL   https://github.com/elstgav/workflowy/issues
 //
-// @downloadURL  https://raw.githubusercontent.com/elstgav/workflowy/main/dist/workflowy.external-links-fix.user.js
-// @updateURL    https://raw.githubusercontent.com/elstgav/workflowy/main/dist/workflowy.external-links-fix.user.js
+// @downloadURL  https://raw.githubusercontent.com/elstgav/workflowy/main/dist/scripts/external-links-fix/workflowy.external-links-fix.user.js
+// @updateURL    https://raw.githubusercontent.com/elstgav/workflowy/main/dist/scripts/external-links-fix/workflowy.external-links-fix.user.js
 //
 // @match        https://workflowy.com/*
 //
@@ -18,7 +18,7 @@
 // @run-at       document-end
 // ==/UserScript==
 
-//#region src/scripts/external-links-fix.ts
+//#region src/scripts/external-links-fix/external-links-fix.ts
 const externalLink = document.createElement('a')
 externalLink.id = 'userscript--external-link-fix'
 externalLink.style.display = 'none'
