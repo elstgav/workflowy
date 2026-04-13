@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         WorkFlowy - Focus Fix
+// @name         Focus Fix
 // @description  Fix WorkFlowy lost focus
 // @author       rawbytz and Gavin Elster
 //

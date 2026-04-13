@@ -1,33 +1,36 @@
 // ==UserScript==
-// @name         WorkFlowy Inline Code Formatting
+// @name         Inline Code Formatting
 // @description  Adds inline code formatting to WorkFlowy (e.g. `code`).
 // @author       Gavin Elster
-// @version      2023.04.24
-// @license      MIT
-//
-// @namespace    https://github.com/elstgav
-// @homepageURL  https://github.com/elstgav/workflowy
-// @supportURL   https://github.com/elstgav/workflowy/issues
-//
-// @downloadURL  https://raw.githubusercontent.com/elstgav/workflowy/main/dist/archive/workflowy.inline-code-style.user.js
-// @updateURL    https://raw.githubusercontent.com/elstgav/workflowy/main/dist/archive/workflowy.inline-code-style.user.js
-//
-// @match        https://workflowy.com/*
 //
 // @grant        none
 // @run-at       document-end
 // ==/UserScript==
 
-//#region src/scripts/archive/inline-code-style.ts
-let currentBullet = null
-let page = null
+/**
+ * ============================== !!DEPRECATED!! ===============================
+ * This script is no longer maintained and is kept for archival purposes only.
+ * WorkFlowy has implemented a native code block feature, so this script is no
+ * longer necessary.
+ *
+ * SEE: https://blog.workflowy.com/code-blocks-inline-code-quotes-strikethrough/
+ * =============================================================================
+ */
+
+import { WFEventListener } from '@/workflowy.types'
+
+let currentBullet: Element | null = null
+let page: HTMLDivElement | null = null
+
 const INLINE_CODE = /`([^`]+)`/g
 const MANGLED_BACKTICK_ANCHOR_TAGS = /<\/a><a [^>]+ href="([^"]+)">`<\/a><a [^>]+ href="(\1)">/g
-const createElementFromHTML = (html) => {
+
+const createElementFromHTML = (html: string) => {
   const template = document.createElement('template')
   template.innerHTML = html.trim()
   return template.content.firstChild
 }
+
 const style = createElementFromHTML(
   `<style>
       span.gavin-backtick {
@@ -45,11 +48,15 @@ const style = createElementFromHTML(
       }
     </style>`.replaceAll(/[\s\n]+/g, ' '),
 )
-const highlight = (container) => {
+
+const highlight = (container: ParentNode | null) => {
   if (!container) return
-  if (document.getElementById('srch-input')?.value?.includes('`')) return
+  const searchInput = document.getElementById('srch-input') as HTMLInputElement | null
+  if (searchInput?.value?.includes('`')) return
+
   container.querySelectorAll('.content[contenteditable] .innerContentContainer').forEach((item) => {
     if (!(item instanceof HTMLElement)) return
+
     requestAnimationFrame(() => {
       if (
         !item.textContent ||
@@ -57,8 +64,12 @@ const highlight = (container) => {
         !item.textContent.match(INLINE_CODE)
       )
         return
-      if ((item.innerHTML.match(MANGLED_BACKTICK_ANCHOR_TAGS)?.length ?? 0) >= 2)
+
+      // Handle mangled link wrapping
+      if ((item.innerHTML.match(MANGLED_BACKTICK_ANCHOR_TAGS)?.length ?? 0) >= 2) {
         item.innerHTML = item.innerHTML.replaceAll(MANGLED_BACKTICK_ANCHOR_TAGS, '`')
+      }
+
       item.innerHTML = item.innerHTML.replaceAll(
         INLINE_CODE,
         '<span class="gavin-backtick">`</span><code class="gavin-inline-code">$1</code><span class="gavin-backtick">`</span>',
@@ -66,35 +77,45 @@ const highlight = (container) => {
     })
   })
 }
+
 const currentBulletRoot = () =>
   currentBullet?.closest('.project.root > .children > .project') ?? null
 const currentFocusRoot = () =>
   document.querySelector('.project.root > .children > .project:focus-within')
+
 const currentBulletObserver = new MutationObserver((mutationList) => {
   const firstMutation = mutationList[0]
   if (!firstMutation || !(firstMutation.target instanceof Element)) return
-  if (
-    (firstMutation.oldValue?.includes('open') ?? false) !==
-    firstMutation.target.classList.contains('open')
-  )
-    highlight(currentFocusRoot())
+
+  const prevOpen = firstMutation.oldValue?.includes('open') ?? false
+  const nowOpen = firstMutation.target.classList.contains('open')
+  const toggled = prevOpen !== nowOpen
+
+  if (toggled) highlight(currentFocusRoot())
 })
-const onFocusIn = (event) => {
+
+const onFocusIn = (event: FocusEvent) => {
+  // Handle previous focused bullet
   if (currentBullet) {
     currentBulletObserver.disconnect()
     highlight(currentBulletRoot())
   }
+
   currentBullet = event.target instanceof Element ? event.target.closest('.project') : null
+
   if (!currentBullet) return
+
   currentBulletObserver.observe(currentBullet, {
     attributes: true,
     attributeFilter: ['class'],
     attributeOldValue: true,
   })
 }
+
 const existingListeners = window.WFEventListener
-const onWFEvent = (event) => {
+const onWFEvent: WFEventListener = (event) => {
   existingListeners?.(event)
+
   switch (event) {
     case 'indent':
     case 'outdent':
@@ -102,32 +123,45 @@ const onWFEvent = (event) => {
     case 'operation--bulk_move':
     case 'operation--delete': {
       const focusRoot = currentFocusRoot()
-      if (currentBullet === focusRoot) highlight(page)
-      else {
+
+      if (currentBullet === focusRoot) {
+        highlight(page)
+      } else {
         highlight(currentFocusRoot())
         if (!focusRoot?.contains(currentBullet)) highlight(currentBulletRoot())
       }
+
       highlight(page)
       break
     }
-    case 'locationChanged':
+
+    case 'locationChanged': {
       highlight(page)
       break
-    default:
+    }
+
+    // Ignored events
+    case 'edit':
+    case 'operation--edit':
+    case 'zoomedIn':
+    case 'zoomedOut':
+    default: {
       break
+    }
   }
 }
+
 const appObserver = new MutationObserver(() => {
   page = document.querySelector('.page.active')
+
   if (!page) return
+
   appObserver.disconnect()
+
   highlight(page)
   page.addEventListener('focusin', onFocusIn)
   window.WFEventListener = onWFEvent
 })
+
 if (style) document.head.appendChild(style)
-appObserver.observe(document.body, {
-  subtree: true,
-  childList: true,
-})
-//#endregion
+appObserver.observe(document.body, { subtree: true, childList: true })
