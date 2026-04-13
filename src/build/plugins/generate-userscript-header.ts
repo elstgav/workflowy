@@ -4,9 +4,9 @@ import { stripIndent } from 'proper-tags'
 import { type UserConfig } from 'tsdown'
 
 import {
-  AUTHOR_LINE_REGEX,
+  AUTHOR_TAG_REGEX,
+  METADATA_REGEX,
   REPO_RAW_BASE_URL,
-  USERSCRIPT_METADATA_REGEX,
   versionForToday,
 } from '@/build/helpers'
 
@@ -18,12 +18,12 @@ export const generateUserscriptHeader: UserConfig['plugins'] = {
       if (!chunk.facadeModuleId) continue
 
       const sourceText = readFileSync(chunk.facadeModuleId, 'utf8')
-      const sourceHeader = sourceText.match(USERSCRIPT_METADATA_REGEX)?.[0].trimEnd()
+      const sourceMetadata = sourceText.match(METADATA_REGEX)?.[0].trimEnd()
 
-      if (!sourceHeader) return
+      if (!sourceMetadata) return
 
-      const header = sourceHeader.replace(
-        AUTHOR_LINE_REGEX,
+      const header = sourceMetadata.replace(
+        AUTHOR_TAG_REGEX,
         (authorLine) =>
           stripIndent`
           ${authorLine.trim()}

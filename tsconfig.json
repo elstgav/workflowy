@@ -49,7 +49,8 @@
 
     "allowSyntheticDefaultImports": true,
     "moduleDetection": "force",
-    "moduleResolution": "Bundler"
+    "moduleResolution": "Bundler",
+    "types": ["greasemonkey", "node"]
   },
 
   "include": ["*.ts", "src/**/*.ts"]
