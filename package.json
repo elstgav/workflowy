@@ -23,6 +23,7 @@
     "oxlint": "^1.59.0",
     "oxlint-tsgolint": "^0.20.0",
     "proper-tags": "^2.0.2",
+    "rolldown": "1.0.0-rc.15",
     "tsdown": "^0.21.7",
     "type-fest": "^5.5.0",
     "typescript": "^6.0.2"

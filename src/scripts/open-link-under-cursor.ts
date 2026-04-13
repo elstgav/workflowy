@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         WorkFlowy - Open Link under cursor
+// @name         Open Link under cursor
 // @description  Open links with a key command in WorkFlowy
 // @author       Gavin Elster
 //

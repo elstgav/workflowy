@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         WorkFlowy - Fixed Keyboard Navigation for Template Buttons
+// @name         WorkFlowy - Fixed Keyboard Navigation for Template Buttons [ARCHIVED]
 // @description  Enables activating and navigating past template buttons via the keyboard.
 // @author       Gavin Elster
 // @version      2026.03.17

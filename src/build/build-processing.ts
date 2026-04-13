@@ -1,6 +1,6 @@
 import { type TsdownHooks, type UserConfig } from 'tsdown'
 
-import { OutputFiles } from '@/build/OutputFiles'
+import { OutputFiles } from '@/build/file-classes'
 
 import { generateUserscriptHeader } from './plugins/generate-userscript-header'
 import { updateProjectREADME } from './update-project-readme'

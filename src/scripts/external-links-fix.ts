@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         WorkFlowy - External Links Fix
+// @name         External Links Fix
 // @description  When running WorkFlowy as a web app, ensures external links open in your default browser (vs. staying in the web app).
 // @author       Gavin Elster
 //

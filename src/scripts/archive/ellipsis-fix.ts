@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         WorkFlowy - Ellipsis Fix
+// @name         Ellipsis Fix
 // @description  Fix the ability to type an ellipsis character (`…`) in WorkFlowy
 // @author       Gavin Elster
 //

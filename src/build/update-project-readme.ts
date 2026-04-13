@@ -2,8 +2,8 @@ import { readFileSync, writeFileSync } from 'node:fs'
 
 import { orderBy, partition } from 'es-toolkit'
 
+import { OutputFile, OutputFiles } from '@/build/file-classes'
 import { PROJECT_README_PATH } from '@/build/helpers'
-import { OutputFile, OutputFiles } from '@/build/OutputFiles'
 
 const ACTIVE_LIST_REGEX =
   /(?<open><!-- ACTIVE_LIST -->)(?<contents>.*)(?<close><!-- \/ACTIVE_LIST -->)/ms
@@ -25,7 +25,8 @@ export const updateProjectREADME = () => {
     const entries = orderBy(files, [(file) => file.metadata.name], ['asc'])
       .map((file) =>
         [
-          `- [${file.metadata.name}](${file.metadata.downloadUrl})  `,
+          // oxfmt-multiline
+          `- [${file.metadata.name}](${file.permalink})  `,
           `  ${file.metadata.description}`,
         ].join('\n'),
       )
