@@ -1,6 +1,6 @@
 // ==UserScript==
-// @name         WorkFlowy Template Button Cursor Fix
-// @description  Fix cursor navigation when focused on a template button
+// @name         WorkFlowy - Fixed Keyboard Navigation for Template Buttons
+// @description  Enables activating and navigating past template buttons via the keyboard.
 // @author       Gavin Elster
 //
 // @grant        none

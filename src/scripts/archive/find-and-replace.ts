@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         WorkFlowy Find & Replace
+// @name         WorkFlowy - Find & Replace
 // @description  Adds a Find & Replace button to the search input.
 // @author       rawbytz and Gavin Elster
 //

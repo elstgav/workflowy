@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         WorkFlowy Inline Code Formatting
+// @name         WorkFlowy - Inline Code Formatting
 // @description  Adds inline code formatting to WorkFlowy (e.g. `code`).
 // @author       Gavin Elster
 //
