@@ -2,7 +2,7 @@ import path from 'node:path'
 
 import { defineConfig } from 'tsdown'
 
-import { postBuild, preBuild, userscriptHeaderPlugin } from '@/build-processing'
+import { plugins, postBuild, preBuild } from '@/build/build-processing'
 
 export default defineConfig({
   entry: ['src/scripts/**/*.ts'],
@@ -15,7 +15,7 @@ export default defineConfig({
     'build:prepare': preBuild,
     'build:done': postBuild,
   },
-  plugins: [userscriptHeaderPlugin],
+  plugins,
 
   clean: true,
   hash: false,
