@@ -3,11 +3,12 @@ import { readFileSync } from 'node:fs'
 import { stripIndent } from 'proper-tags'
 import { type UserConfig } from 'tsdown'
 
-import { versionForToday } from '@/build/versioning'
-import { REPO_RAW_BASE_URL } from '@/constants'
-
-const USERSCRIPT_BLOCK = /^\/\/ ==UserScript==[\s\S]*?^\/\/ ==\/UserScript==\s*/m
-const AUTHOR = /^[\s/]*@author.*$/m
+import {
+  AUTHOR_LINE_REGEX,
+  REPO_RAW_BASE_URL,
+  USERSCRIPT_METADATA_REGEX,
+  versionForToday,
+} from '@/build/helpers'
 
 export const generateUserscriptHeader: UserConfig['plugins'] = {
   name: 'userscript-header',
@@ -17,13 +18,15 @@ export const generateUserscriptHeader: UserConfig['plugins'] = {
       if (!chunk.facadeModuleId) continue
 
       const sourceText = readFileSync(chunk.facadeModuleId, 'utf8')
-      const sourceHeader = sourceText.match(USERSCRIPT_BLOCK)?.[0].trimEnd()
+      const sourceHeader = sourceText.match(USERSCRIPT_METADATA_REGEX)?.[0].trimEnd()
 
       if (!sourceHeader) return
 
-      const header = sourceHeader.replace(AUTHOR, (authorLine) =>
-        stripIndent`
-          ${authorLine}
+      const header = sourceHeader.replace(
+        AUTHOR_LINE_REGEX,
+        (authorLine) =>
+          stripIndent`
+          ${authorLine.trim()}
           // @version      ${versionForToday()}
           // @license      MIT
           //
@@ -35,7 +38,7 @@ export const generateUserscriptHeader: UserConfig['plugins'] = {
           // @updateURL    ${REPO_RAW_BASE_URL}/dist/${chunk.fileName}
           //
           // @match        https://workflowy.com/*
-        `.trim(),
+        `,
       )
 
       if (!header) continue

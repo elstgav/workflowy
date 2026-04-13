@@ -1,8 +1,7 @@
 import { execSync } from 'node:child_process'
 import { globSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 
-import { VERSION_REGEX, versionForToday } from '@/build/versioning'
-import { ROOT_DIR } from '@/constants'
+import { ROOT_DIR, VERSION_REGEX, versionForToday } from '@/build/helpers'
 
 class OutputFile {
   readonly snapshot: string
